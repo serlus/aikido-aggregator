@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import { sourceStatus, stats, fmtDate, COUNTRY_NAMES } from '../lib/db.js';
+
+const sources = sourceStatus();
+const st = stats();
+
+function health(s) {
+  if (s.failStreak >= 3) return ['erro', 'bg-red-50 text-red-700 border-red-200', 'bg-red-500'];
+  if (s.failStreak > 0) return ['instável', 'bg-amber-50 text-amber-700 border-amber-200', 'bg-amber-500'];
+  if (!s.last) return ['aguardando', 'bg-neutral-100 text-neutral-500 border-neutral-200', 'bg-neutral-400'];
+  return ['ok', 'bg-green-50 text-green-700 border-green-200', 'bg-green-500'];
+}
+---
+<Base title="Status — AikiHub">
+  <section class="w-full bg-white py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <Eyebrow label="Status — saúde dos scrapers" />
+      <h1 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-4 leading-[0.9]">Status</h1>
+      <p class="text-lg text-neutral-500 font-mono max-w-2xl mb-4">
+        Última coleta e última mudança detectada por fonte.
+      </p>
+      <p class="text-xs text-neutral-400 font-mono mb-12 inline-flex items-center gap-2">
+        <Icon name="activity" class="w-3 h-3" />
+        atualizado em {st.lastUpdate ? st.lastUpdate.replace('T', ' ').slice(0, 16) + ' UTC' : '—'}
+      </p>
+
+      <div class="overflow-x-auto border border-neutral-200 rounded-2xl">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-neutral-50 border-b border-neutral-200 text-left">
+              <th class="px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono">Fonte</th>
+              <th class="px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono">País</th>
+              <th class="px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono">Engine</th>
+              <th class="px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono">Cadência</th>
+              <th class="px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono">Última coleta</th>
+              <th class="px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono">Última mudança</th>
+              <th class="px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono">Saúde</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100">
+            {sources.map((s) => {
+              const [label, cls, dot] = health(s);
+              return (
+                <tr class="hover:bg-neutral-50 transition-colors">
+                  <td class="px-5 py-4">
+                    <div class="font-medium text-neutral-900">{s.name}</div>
+                    <div class="text-xs text-neutral-400 font-mono">{s.id}</div>
+                  </td>
+                  <td class="px-5 py-4 text-neutral-600 font-mono text-xs">{COUNTRY_NAMES[s.country] ?? s.country}</td>
+                  <td class="px-5 py-4"><span class="px-3 py-1 text-xs bg-neutral-100 text-neutral-600 border border-neutral-200 rounded-full font-mono">{s.engine}</span></td>
+                  <td class="px-5 py-4 text-neutral-600 font-mono text-xs">{s.cadence}</td>
+                  <td class="px-5 py-4 text-neutral-600 font-mono text-xs">{s.last ? fmtDate(s.last.fetched_at) : '—'}</td>
+                  <td class="px-5 py-4 text-neutral-600 font-mono text-xs">{s.lastChange ? fmtDate(s.lastChange) : '—'}</td>
+                  <td class="px-5 py-4">
+                    <span class={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono ${cls}`}>
+                      <span class={`w-2 h-2 rounded-full ${dot}`}></span>
+                      {label}{s.failStreak > 0 ? ` (${s.failStreak})` : ''}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-xs text-neutral-400 font-mono mt-6">
+        "aguardando" = fonte catalogada, primeira coleta pendente (ex.: engine headless fica p/ Fase 5).
+        3+ falhas consecutivas marcam a fonte como "erro".
+      </p>
+    </div>
+  </section>
+</Base>
