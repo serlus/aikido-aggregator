@@ -1,0 +1,35 @@
+name: newsletter
+
+on:
+  schedule:
+    - cron: "0 12 1 * *"   # dia 1 de cada mês, 12:00 UTC (após o scrape)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  newsletter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Install deps
+        run: uv sync --locked
+
+      - name: Gerar resumo mensal
+        run: uv run scraper/newsletter.py
+
+      - name: Commit
+        run: |
+          git config user.name  "newsletter-bot"
+          git config user.email "newsletter-bot@users.noreply.github.com"
+          git add reports/
+          git diff --cached --quiet || git commit -m "newsletter: $(date -u +%Y-%m)"
+          git push

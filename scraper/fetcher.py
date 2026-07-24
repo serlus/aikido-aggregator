@@ -209,3 +209,37 @@ class Fetcher:
                 last_modified=resp.headers.get("last-modified"),
             )
         raise last_err if last_err else httpx.HTTPError(f"fetch failed: {url}")
+
+    # ── headless (Fase 5: fontes JS-rendered, ex. minas_aikido) ──────────
+    def fetch_headless(self, url: str) -> FetchResult:
+        """Renderiza a página com Chromium (Playwright) e retorna o DOM.
+        Mesmas guardas do fetch normal; timeout 90s (ARCHITECTURE §6)."""
+        from playwright.sync_api import sync_playwright
+
+        self.check_blocklist(url)
+        if not self._robots_allowed(url):
+            raise RobotsDisallowedError(url)
+        self._throttle(urlparse(url).netloc)
+
+        t0 = time.monotonic()
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            try:
+                page = browser.new_page(user_agent=USER_AGENT)
+                resp = page.goto(url, timeout=90_000, wait_until="networkidle")
+                html = page.content()
+                status = resp.status if resp else 200
+            finally:
+                browser.close()
+        latency = int((time.monotonic() - t0) * 1000)
+        body = html.encode("utf-8")
+        return FetchResult(
+            url=url,
+            status=status,
+            body=body,
+            text=unicodedata.normalize("NFC", html),
+            content_hash=visible_text_hash(body),
+            latency_ms=latency,
+            etag=None,
+            last_modified=None,
+        )

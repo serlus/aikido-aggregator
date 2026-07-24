@@ -21,6 +21,7 @@ on:
 
 permissions:
   contents: write
+  issues: write      # alertas de falha (Fase 5)
 
 concurrency:
   group: scrape
@@ -56,6 +57,10 @@ jobs:
             echo "flags=--cadence $cadence" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Install Chromium (fontes headless — só na cadência monthly)
+        if: contains(steps.args.outputs.flags, 'monthly') || contains(steps.args.outputs.flags, 'minas')
+        run: uv run playwright install --with-deps chromium
+
       - name: Ingest
         run: uv run scraper/ingest.py ${{ steps.args.outputs.flags }}
 
@@ -78,3 +83,20 @@ jobs:
           git add db/aikido.db raw/
           git diff --cached --quiet || git commit -m "scrape: $(date -u +%Y-%m-%d) ${{ steps.args.outputs.flags }}"
           git push
+
+      - name: Alertas de falha (streak >= 3 abre issue; recuperada fecha)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          uv run scraper/alerts.py | while IFS='|' read -r kind sid streak err; do
+            title="scraper: falhas consecutivas em $sid"
+            existing=$(gh issue list --state open --label scraper-alert --search "\"$title\" in:title" --json number --jq '.[0].number' || true)
+            if [ "$kind" = "ALERT" ]; then
+              if [ -z "$existing" ]; then
+                gh issue create --title "$title" --label scraper-alert \
+                  --body "A fonte \`$sid\` falhou $streak coletas consecutivas. Último erro: \`$err\`. Ver /status do site e logs do workflow."
+              fi
+            elif [ -n "$existing" ]; then
+              gh issue close "$existing" --comment "Fonte \`$sid\` voltou a coletar com sucesso — fechado automaticamente."
+            fi
+          done

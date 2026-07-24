@@ -48,8 +48,8 @@ sources:
     country: JP
     lang: [ja, en]
     lineage: yoshinkan
-    engine: http       # wp-json responde, mas /posts só tem o "Hello world"
-                       # padrão (2026-07-24) — conteúdo real fica fora de posts
+    engine: http       # wp-json inútil (só "Hello world"); notícias reais na
+                       # homepage — parser dedicado parsers/yoshinkan_jp.py (Fase 5)
     cadence: monthly
     priority: 2
 
@@ -209,7 +209,8 @@ sources:
     country: CL
     lang: [es]
     lineage: tissier_ffaaa
-    engine: http
+    engine: http       # site com timeout em 2026-07-24 — monitorado pelos
+                       # alertas (streak >= 3 abre issue); reavaliar na Fase 7
     cadence: monthly
     priority: 3
 
@@ -219,6 +220,7 @@ sources:
     country: AR
     lang: [es]
     lineage: tissier_ffaaa
-    engine: http
+    engine: http       # DNS não resolve em 2026-07-24 (site possivelmente
+                       # extinto) — alertas monitoram; buscar URL nova na Fase 7
     cadence: monthly
     priority: 3
