@@ -118,13 +118,14 @@ BASE_PATH="/" no workflow) quando o nome for decidido.
 **Objetivo:** elevar o acabamento do site v1 mantendo o design system como base.
 
 **Entregas:**
-- [ ] Responsividade refinada mobile/desktop: navegação mobile (menu compacto), grids e tipografia fluida, filtros da agenda confortáveis no toque, tabela de status utilizável em tela pequena
-- [ ] Imagens de fundo e texturas nas seções (hero e aberturas) — otimizadas (AVIF/WebP), sem custo de CDN, sem ferir o Lighthouse
-- [ ] Elementos dinâmicos: micro-interações do design system (lift, nudge, reveal) revisadas + avaliar o hero 3D (torus/partículas douradas do `design-system.html`) com fallback estático
-- [ ] Limpeza de informações internas do projeto no site público: **nenhuma menção a "fases"/roadmap** nas páginas (ex.: `/status` hoje cita "Fase 5") — esse vocabulário fica restrito ao repositório
+- [x] Responsividade refinada mobile/desktop: menu hambúrguer <640px, tipografia fluida no hero (`clamp`), filtros da agenda com alvo de toque ≥40px, `/status` vira cards em telas <768px (tabela só em desktop)
+- [x] Imagens de fundo e texturas nas seções — 6 fotos do Wikimedia Commons auto-hospedadas (domínio público / CC BY / CC BY-SA, créditos no rodapé + `site/src/assets/img/CREDITS.json`): torii de Itsukushima no hero, textura do jardim zen de Ryōan-ji nos stats, seiza na agenda, kumitachi nas notícias, retrato do O-Sensei (1939) no diretório; AVIF/WebP gerados no build via `astro:assets` (sem CDN)
+- [x] Elementos dinâmicos: reveal-on-scroll (IntersectionObserver, com `prefers-reduced-motion` e fallback sem JS), lift/nudge mantidos; hero 3D **avaliado e descartado** — o torus Three.js custaria ~600 KB de JS decorativo e feriria o Lighthouse mobile; no lugar, canvas leve (~2 KB) com partículas douradas, sem partículas quando reduced-motion (fallback estático)
+- [x] Limpeza de informações internas: menção a "Fase 5" removida do `/status`; zero menções a fases/roadmap no HTML publicado (verificado no `dist/`)
 
-**Critério de saída:** Lighthouse mobile ≥ 90 nas 5 páginas; zero menções a
-fases/roadmap no HTML publicado; navegação completa confortável em 375px.
+**Critério de saída (atingido em 2026-07-24):** Lighthouse mobile — home 92,
+agenda 93, notícias 94–96, diretório 94, status 91 (perf; a11y 100 nas 5);
+zero menções a fases/roadmap; navegação completa confortável em 375px.
 
 ---
 

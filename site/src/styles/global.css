@@ -15,3 +15,40 @@ html {
 ::-webkit-scrollbar-track { background: #f5f5f5; }
 ::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
+
+/* Micro-interações do design system: reveal on scroll.
+   Só esconde quando há JS (html.js) — sem JS o conteúdo fica visível. */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Grayscale reveal (imagens editoriais) */
+.img-reveal {
+  filter: grayscale(0.85) contrast(1.02);
+  transition: filter 0.5s ease;
+}
+.img-reveal:hover,
+a:hover .img-reveal,
+.group:hover .img-reveal {
+  filter: grayscale(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .img-reveal { transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

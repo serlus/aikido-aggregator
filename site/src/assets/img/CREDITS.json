@@ -1,0 +1,44 @@
+{
+  "osensei-1939.jpg": {
+    "title": "File:Morihei Ueshiba 1939.jpg",
+    "artist": "Unknown photographer",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Morihei_Ueshiba_1939.jpg",
+    "size": "600x865"
+  },
+  "torii-itsukushima.jpg": {
+    "title": "File:Itsukushima-jinja torii at sunset, Miyajima, Japan, 20240816 1829 4161.jpg",
+    "artist": "Jakub Hałun",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Itsukushima-jinja_torii_at_sunset,_Miyajima,_Japan,_20240816_1829_4161.jpg",
+    "size": "5202x3474"
+  },
+  "zen-garden-ryoanji.jpg": {
+    "title": "File:Kare-sansui zen garden, Ryōan-ji, Kyoto 20190416 1.jpg",
+    "artist": "DXR",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kare-sansui_zen_garden,_Ry%C5%8Dan-ji,_Kyoto_20190416_1.jpg",
+    "size": "8120x5453"
+  },
+  "aikido-kumitachi.jpg": {
+    "title": "File:Kumitachi de Aikido en Kaizen Dojo.jpg",
+    "artist": "Norkiña",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kumitachi_de_Aikido_en_Kaizen_Dojo.jpg",
+    "size": "8626x6161"
+  },
+  "aikido-seiza.jpg": {
+    "title": "File:Practicantes de Aikido en seiza ,Kaizen Dojo.jpg",
+    "artist": "Norkiña",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Practicantes_de_Aikido_en_seiza_,Kaizen_Dojo.jpg",
+    "size": "2160x2952"
+  },
+  "hakama-detail.jpg": {
+    "title": "File:Detalle del anudado de las cintas de la hakama en Aikido.jpg",
+    "artist": "Norkiña",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Detalle_del_anudado_de_las_cintas_de_la_hakama_en_Aikido.jpg",
+    "size": "4096x7281"
+  }
+}

@@ -27,7 +27,36 @@ function health(s) {
         atualizado em {st.lastUpdate ? st.lastUpdate.replace('T', ' ').slice(0, 16) + ' UTC' : '—'}
       </p>
 
-      <div class="overflow-x-auto border border-neutral-200 rounded-2xl">
+      <!-- Cards (mobile) -->
+      <div class="md:hidden flex flex-col gap-3">
+        {sources.map((s) => {
+          const [label, cls, dot] = health(s);
+          return (
+            <div class="border border-neutral-200 rounded-2xl p-4">
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <div class="min-w-0">
+                  <div class="font-medium text-neutral-900 leading-snug">{s.name}</div>
+                  <div class="text-xs text-neutral-400 font-mono">{s.id}</div>
+                </div>
+                <span class={`shrink-0 inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono ${cls}`}>
+                  <span class={`w-2 h-2 rounded-full ${dot}`}></span>
+                  {label}{s.failStreak > 0 ? ` (${s.failStreak})` : ''}
+                </span>
+              </div>
+              <dl class="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs font-mono">
+                <div class="flex justify-between gap-2 col-span-2 sm:col-span-1"><dt class="text-neutral-400">País</dt><dd class="text-neutral-600">{COUNTRY_NAMES[s.country] ?? s.country}</dd></div>
+                <div class="flex justify-between gap-2 col-span-2 sm:col-span-1"><dt class="text-neutral-400">Engine</dt><dd class="text-neutral-600">{s.engine}</dd></div>
+                <div class="flex justify-between gap-2 col-span-2 sm:col-span-1"><dt class="text-neutral-400">Cadência</dt><dd class="text-neutral-600">{s.cadence}</dd></div>
+                <div class="flex justify-between gap-2 col-span-2 sm:col-span-1"><dt class="text-neutral-400">Última coleta</dt><dd class="text-neutral-600">{s.last ? fmtDate(s.last.fetched_at) : '—'}</dd></div>
+                <div class="flex justify-between gap-2 col-span-2 sm:col-span-1"><dt class="text-neutral-400">Última mudança</dt><dd class="text-neutral-600">{s.lastChange ? fmtDate(s.lastChange) : '—'}</dd></div>
+              </dl>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- Tabela (desktop) -->
+      <div class="hidden md:block overflow-x-auto border border-neutral-200 rounded-2xl">
         <table class="w-full text-sm">
           <thead>
             <tr class="bg-neutral-50 border-b border-neutral-200 text-left">
@@ -68,7 +97,7 @@ function health(s) {
       </div>
 
       <p class="text-xs text-neutral-400 font-mono mt-6">
-        "aguardando" = fonte catalogada, primeira coleta pendente (ex.: engine headless fica p/ Fase 5).
+        "aguardando" = fonte catalogada, primeira coleta pendente.
         3+ falhas consecutivas marcam a fonte como "erro".
       </p>
     </div>

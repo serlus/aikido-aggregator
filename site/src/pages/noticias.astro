@@ -2,13 +2,15 @@
 import Base from '../layouts/Base.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Icon from '../components/Icon.astro';
+import { Picture } from 'astro:assets';
 import { news, fmtDate, COUNTRY_NAMES } from '../lib/db.js';
+import kumitachi from '../assets/img/aikido-kumitachi.jpg';
 
 const items = news();
 const TYPE_BADGE = {
   news: ['Notícia', 'bg-neutral-100 text-neutral-600 border-neutral-200'],
   seminar: ['Seminário', 'bg-blue-50 text-blue-600 border-blue-100'],
-  event: ['Evento', 'bg-emerald-50 text-emerald-600 border-emerald-100'],
+  event: ['Evento', 'bg-emerald-50 text-emerald-700 border-emerald-100'],
 };
 const LANG = { ja: 'traduzido do japonês', fr: 'traduzido do francês', es: 'traduzido do espanhol', en: 'traduzido do inglês' };
 const trunc = (s, n = 200) => (s && s.length > n ? s.slice(0, n).replace(/\s+\S*$/, '') + '…' : s);
@@ -17,10 +19,25 @@ const trunc = (s, n = 200) => (s && s.length > n ? s.slice(0, n).replace(/\s+\S*
   <section class="w-full bg-white py-24 px-6 md:px-12">
     <div class="max-w-7xl mx-auto">
       <Eyebrow label="Notícias — feed agregado" />
-      <h1 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-4 leading-[0.9]">Notícias</h1>
-      <p class="text-lg text-neutral-500 font-mono max-w-2xl mb-12">
-        Título e resumo em português, com link para o conteúdo completo na fonte original.
-      </p>
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_minmax(220px,320px)] gap-8 md:gap-12 items-end mb-12">
+        <div>
+          <h1 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-4 leading-[0.9]">Notícias</h1>
+          <p class="text-base sm:text-lg text-neutral-500 font-mono max-w-2xl">
+            Título e resumo em português, com link para o conteúdo completo na fonte original.
+          </p>
+        </div>
+        <div class="group hidden md:block rounded-2xl overflow-hidden border border-neutral-200 aspect-[3/2]">
+          <Picture
+            src={kumitachi}
+            formats={['avif', 'webp']}
+            widths={[360, 640]}
+            sizes="320px"
+            quality={60}
+            alt="Prática de kumitachi (armas) em um dojo de aikido"
+            class="img-reveal w-full h-full object-cover"
+          />
+        </div>
+      </div>
 
       <div class="max-w-4xl">
         {items.map((n) => {
