@@ -22,9 +22,18 @@ def connect(db_path: Path = DB_PATH) -> sqlite3.Connection:
     conn = sqlite3.connect(db_path)
     conn.execute("PRAGMA foreign_keys = ON")
     conn.executescript(SCHEMA_PATH.read_text(encoding="utf-8"))
+    _migrate(conn)
     conn.executescript(SEED_PATH.read_text(encoding="utf-8"))
     conn.commit()
     return conn
+
+
+def _migrate(conn: sqlite3.Connection) -> None:
+    """Colunas adicionadas após o schema inicial (CREATE IF NOT EXISTS não
+    altera tabelas existentes)."""
+    cols = {r[1] for r in conn.execute("PRAGMA table_info(events)")}
+    if "region" not in cols:
+        conn.execute("ALTER TABLE events ADD COLUMN region TEXT")
 
 
 def sync_sources(conn: sqlite3.Connection, sources: list[dict]) -> None:
