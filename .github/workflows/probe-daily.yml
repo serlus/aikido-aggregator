@@ -20,24 +20,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
-          python-version: "3.12"
-          cache: pip
+          enable-cache: true
 
       - name: Install deps
-        run: pip install -r requirements.txt
+        run: uv sync --locked
 
       - name: Run probe (com discover 1x/semana, às segundas)
         run: |
           if [ "$(date -u +%u)" = "1" ]; then
-            python scraper/probe.py --discover
+            uv run scraper/probe.py --discover
           else
-            python scraper/probe.py
+            uv run scraper/probe.py
           fi
 
       - name: Generate frequency report
-        run: python scraper/report.py
+        run: uv run scraper/report.py
 
       - name: Commit results
         run: |
