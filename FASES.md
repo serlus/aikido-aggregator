@@ -10,12 +10,12 @@
 **Objetivo:** substituir chute por dado empírico na definição das cadências.
 
 **Entregas:**
-- [ ] Repo criado (`aikido-aggregator`) com estrutura base
-- [ ] `sources.yml` — catálogo das fontes com URL, país, motor, status
-- [ ] Script `probe.py`: para cada fonte, fetch → normaliza → `content_hash` → grava em `probes.sqlite` (source, timestamp, hash, http_status, latency)
-- [ ] GitHub Action com cron **diário** rodando o probe em todas as fontes
-- [ ] Verificação de RSS/`wp-json` em cada fonte WordPress (Paraná, Shoyukan, ACAI…) — anotar no `sources.yml` quais expõem API
-- [ ] Verificação de robots.txt de cada fonte — anotar allow/disallow
+- [x] Repo criado (`aikido-aggregator`) com estrutura base
+- [x] `sources.yml` — catálogo das fontes com URL, país, motor, status
+- [x] Script `probe.py`: para cada fonte, fetch → normaliza → `content_hash` → grava em `probes.sqlite` (source, timestamp, hash, http_status, latency)
+- [x] GitHub Action com cron **diário** rodando o probe em todas as fontes
+- [x] Verificação de RSS/`wp-json` em cada fonte WordPress (Paraná, Shoyukan, ACAI…) — anotado no `sources.yml` em 2026-07-24: wp_json real em acai_sc, fepai, ffaaa_fr; via `endpoints:` (pages) em aikido_parana e ica_sc; descartado em aikikai_jp (feed vazio), yoshinkan_jp e shoyukan_br (posts padrão/estáticos)
+- [x] Verificação de robots.txt de cada fonte — anotar allow/disallow. Verificado 2026-07-24 (tabela `robots_status` em `db/probes.sqlite`, rechecado a cada probe): 19/19 fontes **allowed**, incl. cercletissier.com (URL nova) e christiantissier.com. Disallow conhecidos já estão em `blocklist.yml` (aikidobr.com.br, mapaosc.ipea.gov.br)
 
 **Critério de saída:** ≥ 30 dias de dados; relatório `frequency-report.md` gerado
 automaticamente com: mudanças detectadas por fonte, intervalo médio entre
@@ -32,15 +32,16 @@ em paralelo.
 **Objetivo:** schema, armazenamento de raw e pipeline de ingestão.
 
 **Entregas:**
-- [ ] Schema SQLite (ver ARCHITECTURE.md §Modelo de dados): `sources`, `fetches`, `items`, `events`, `orgs`, `lineages`
-- [ ] Armazenamento de raw: `raw/{source}/{YYYY-MM-DD}/{hash}.html` (ou S3/R2 depois)
-- [ ] Módulo `fetcher` compartilhado: rate-limit por domínio, retry, UA identificado, normalização UTF-8 (incl. Shift-JIS → UTF-8)
-- [ ] Blocklist explícita (aikikai.com.br)
-- [ ] Seed manual do diretório: linhagens e federações já mapeadas na pesquisa (Aikikai, Tissier/FFAAA, Kumano/Anno, Kawai, Yoshinkan, Iwama, Ki Society + orgs BR/AR/CL/JP/FR)
+- [x] Schema SQLite (ver ARCHITECTURE.md §Modelo de dados): `sources`, `fetches`, `items`, `events`, `orgs`, `lineages` — `db/schema.sql`
+- [x] Armazenamento de raw: `raw/{source}/{YYYY-MM-DD}/{hash}.html` (ou S3/R2 depois)
+- [x] Módulo `fetcher` compartilhado: rate-limit por domínio, retry, UA identificado, normalização UTF-8 (incl. Shift-JIS → UTF-8) — `scraper/fetcher.py`
+- [x] Blocklist explícita (aikikai.com.br) — `blocklist.yml`, aplicada pelo fetcher
+- [x] Seed manual do diretório: linhagens e federações já mapeadas na pesquisa (Aikikai, Tissier/FFAAA, Kumano/Anno, Kawai, Yoshinkan, Iwama, Ki Society + orgs BR/AR/CL/JP/FR) — `db/seed.sql`
 
 **Critério de saída:** `make ingest SOURCE=x` roda fim-a-fim para 1 fonte
 estática (sugestão: aikidocriciuma.com.br — simples e estável) gravando raw
-+ item normalizado.
++ item normalizado. ✅ verificado em 2026-07-24 com `daisho_criciuma`
+(baseline + re-run sem mudança, sem duplicar raw/item).
 
 ---
 

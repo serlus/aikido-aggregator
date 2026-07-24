@@ -1,0 +1,10 @@
+[
+  {"id": 101, "link": "https://exemplo.com.br/seminario-2026/",
+   "title": {"rendered": "Semin&aacute;rio Internacional <b>2026</b>"},
+   "excerpt": {"rendered": "<p>Inscri&ccedil;&otilde;es abertas para o semin&aacute;rio.</p>"},
+   "date_gmt": "2026-07-20T14:03:11", "modified_gmt": "2026-07-21T09:00:00"},
+  {"id": 102, "link": "https://exemplo.com.br/exame-dan/",
+   "title": {"rendered": "Resultados do exame de Dan"},
+   "excerpt": {"rendered": ""},
+   "date_gmt": "2026-06-01T10:00:00", "modified_gmt": "2026-06-01T10:00:00"}
+]
