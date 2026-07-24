@@ -1,0 +1,775 @@
+<html lang="pt-BR"><head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Design System — faux.moni / ux.jonny</title>
+<script src="assets/resource_3fa48481346f.es"></script>
+<script src="assets/three_1aecfa5aa56f.js"></script>
+<script src="assets/lucide_latest_2eebd0ebe8c2.es"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="assets/css2_19fd9cc6b396.css" rel="stylesheet"/>
+<link href="assets/css2_62759cd015bd.css" rel="stylesheet"/>
+<link href="assets/css2_86e10c4bcbd4.css" rel="stylesheet"/>
+<style>
+:root { --font-sans: 'Geist', Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; }
+body {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #171717;
+}
+.font-geist { font-family: 'Geist', sans-serif !important; }
+.font-geist-mono { font-family: 'Geist Mono', monospace !important; }
+.font-inter { font-family: 'Inter', sans-serif !important; }
+
+/* Design System Navigation */
+.ds-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08);
+}
+.ds-nav-links {
+  display: flex;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  align-items: center;
+}
+.ds-nav-links a {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #737373;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.ds-nav-links a:hover { color: #000000; }
+
+/* Section anchors */
+.ds-section { scroll-margin-top: 80px; }
+
+/* Typography spec table */
+.typography-spec { width: 100%; border-collapse: collapse; }
+.typography-spec tr { border-bottom: 1px solid rgba(23, 23, 23, 0.08); }
+.typography-spec td { padding: 1.5rem 0; vertical-align: baseline; }
+.typography-spec td:first-child {
+  width: 200px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #737373;
+  font-family: 'Geist Mono', monospace;
+}
+.typography-spec td:nth-child(2) { flex: 1; }
+.typography-spec td:last-child {
+  width: 160px;
+  text-align: right;
+  font-size: 0.7rem;
+  color: #a3a3a3;
+  font-family: 'Geist Mono', monospace;
+}
+
+/* Color swatches */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1.25rem;
+}
+.color-swatch {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(23, 23, 23, 0.1);
+  background: #fff;
+}
+.color-swatch-preview { height: 110px; width: 100%; }
+.color-swatch-info { padding: 0.875rem 1rem; }
+.color-swatch-name { font-weight: 600; font-size: 0.8rem; margin-bottom: 0.2rem; color: #171717; }
+.color-swatch-value { font-size: 0.7rem; color: #a3a3a3; font-family: 'Geist Mono', monospace; }
+
+/* Component showcase */
+.component-showcase { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; }
+.component-state { display: flex; flex-direction: column; gap: 0.6rem; }
+.component-state-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #737373;
+  font-family: 'Geist Mono', monospace;
+}
+
+/* Hero canvas */
+#canvas-container {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f5f5f5; }
+::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
+</style>
+<style data-scroll-fix="true">
+        html, body {
+            overflow: auto !important;
+            overflow-x: hidden !important;
+            height: auto !important;
+            min-height: 100% !important;
+            scroll-behavior: auto !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        body, .wrapper, main, #__next, #app, .page, .content {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        .loader, .preloader, .loading, [class*="loader"], [class*="preloader"] {
+            display: none !important;
+            opacity: 0 !important;
+        }
+        .opacity-0, [class*="opacity-0"] { opacity: 1 !important; }
+        main, #__next, #__nuxt, #app, .main-content {
+            overflow: visible !important;
+            height: auto !important;
+        }
+</style></head>
+<body class="bg-white text-neutral-900 antialiased selection:bg-neutral-200 selection:text-black min-h-screen flex flex-col overflow-x-hidden">
+
+<!-- Design System Navigation -->
+<nav class="ds-nav w-full px-6 md:px-12">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="text-base font-bold tracking-tight text-black">ux.jonny <span class="text-neutral-400 font-normal">/ design system</span></div>
+<div class="ds-nav-links">
+<a href="#hero">Hero</a>
+<a href="#typography">Typography</a>
+<a href="#colors">Colors</a>
+<a href="#components">Components</a>
+<a href="#layout">Layout</a>
+<a href="#motion">Motion</a>
+<a href="#icons">Icons</a>
+</div>
+</div>
+</nav>
+
+<!-- 0) Hero (faithful clone with contained 3D torus knot) -->
+<header id="hero" class="ds-section relative w-full min-h-[92vh] flex flex-col justify-between p-6 sm:p-12 z-10 overflow-hidden bg-white border-b border-neutral-100">
+<div id="canvas-container"></div>
+<!-- Top badge row -->
+<div class="flex justify-between items-start w-full max-w-[1400px] mx-auto z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 bg-white/60 backdrop-blur-sm text-xs text-neutral-600 font-geist-mono">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+Design System Showcase
+</div>
+<nav class="hidden sm:flex gap-8 text-xs font-medium text-neutral-500 uppercase tracking-wide">
+<span class="hover:text-black transition-colors cursor-default">sobre</span>
+<span class="hover:text-black transition-colors cursor-default">projetos</span>
+<span class="hover:text-black transition-colors cursor-default">contato</span>
+</nav>
+</div>
+<!-- Hero footer content -->
+<div class="flex flex-col md:flex-row justify-between items-end gap-12 w-full max-w-[1400px] mx-auto mb-4 z-10">
+<div class="max-w-xs space-y-8">
+<p class="text-sm leading-relaxed text-neutral-600 font-medium">
+  Referência viva do design system — tokens, tipografia, componentes e interações, extraídos exatamente como projetados no portfólio.
+</p>
+<button class="group flex items-center gap-2 text-xs font-bold tracking-widest uppercase border-b border-black pb-1 hover:text-neutral-600 hover:border-neutral-400 transition-all cursor-pointer" onclick="document.getElementById('typography').scrollIntoView()">
+  Explorar <span class="group-hover:translate-y-0.5 transition-transform duration-300">↓</span>
+</button>
+</div>
+<div class="text-right">
+<h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[0.85] text-black">
+<span class="block">Product Designer</span>
+<span class="block">&amp; Design System</span>
+</h1>
+<p class="text-2xl md:text-4xl text-neutral-400 font-normal mt-3 tracking-tight">since 2018</p>
+</div>
+</div>
+</header>
+
+<main class="relative z-20 bg-white">
+
+<!-- 1) Typography -->
+<section id="typography" class="ds-section w-full bg-white py-24 px-6 md:px-12 border-t border-neutral-100">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-3 mb-6">
+<span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-geist-mono">01 — Foundations</span>
+<div class="h-px flex-1 bg-neutral-200"></div>
+</div>
+<h2 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-4 leading-[0.9]">Typography</h2>
+<p class="text-lg text-neutral-500 font-geist-mono max-w-2xl mb-12">Geist para display e UI, Geist Mono para labels, código e detalhes técnicos, Inter como fallback do sistema.</p>
+
+<!-- Font families -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<div class="bg-neutral-50 border border-neutral-200 rounded-2xl p-6">
+<div class="text-xs font-geist-mono uppercase tracking-widest text-neutral-400 mb-3">Display / UI</div>
+<div class="text-5xl font-semibold tracking-tighter text-neutral-900 mb-2 font-geist">Aa</div>
+<div class="text-sm font-medium text-neutral-900 font-geist">Geist</div>
+<div class="text-xs text-neutral-500 font-geist-mono mt-1">font-semibold · tracking-tighter</div>
+</div>
+<div class="bg-neutral-50 border border-neutral-200 rounded-2xl p-6">
+<div class="text-xs font-geist-mono uppercase tracking-widest text-neutral-400 mb-3">Mono / Detail</div>
+<div class="text-5xl font-medium text-neutral-900 mb-2 font-geist-mono">Aa</div>
+<div class="text-sm font-medium text-neutral-900 font-geist-mono">Geist Mono</div>
+<div class="text-xs text-neutral-500 font-geist-mono mt-1">body · labels · code</div>
+</div>
+<div class="bg-neutral-50 border border-neutral-200 rounded-2xl p-6">
+<div class="text-xs font-geist-mono uppercase tracking-widest text-neutral-400 mb-3">Fallback</div>
+<div class="text-5xl font-semibold text-neutral-900 mb-2 font-inter">Aa</div>
+<div class="text-sm font-medium text-neutral-900 font-inter">Inter</div>
+<div class="text-xs text-neutral-500 font-geist-mono mt-1">system fallback</div>
+</div>
+</div>
+
+<!-- Type scale spec -->
+<table class="typography-spec">
+<tbody>
+<tr>
+<td>Display / H1</td>
+<td><h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[0.85] text-black">Product Designer</h1></td>
+<td>96px · 700 · -0.05em</td>
+</tr>
+<tr>
+<td>Display Muted</td>
+<td><p class="text-2xl md:text-4xl text-neutral-400 font-normal tracking-tight">since 2018</p></td>
+<td>36px · 400</td>
+</tr>
+<tr>
+<td>Heading 2</td>
+<td><h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900">Projetos</h2></td>
+<td>36px · 600 · -0.025em</td>
+</tr>
+<tr>
+<td>Heading 3</td>
+<td><h3 class="text-2xl font-bold text-neutral-900">SaaS Dashboard</h3></td>
+<td>24px · 700</td>
+</tr>
+<tr>
+<td>Heading 4</td>
+<td><h4 class="text-xl font-semibold text-neutral-900">UX/UI Design</h4></td>
+<td>20px · 600</td>
+</tr>
+<tr>
+<td>Quote / Editorial</td>
+<td><p class="text-2xl md:text-3xl font-medium text-neutral-900 leading-tight">"Superar expectativas observando detalhes que poucos se atentam."</p></td>
+<td>30px · 500</td>
+</tr>
+<tr>
+<td>Body Large (mono)</td>
+<td><p class="text-lg leading-relaxed text-neutral-600 font-geist-mono max-w-xl">Crio interfaces escaláveis com Design Systems sólidos — de tokens a componentes — garantindo consistência e qualidade.</p></td>
+<td>18px · mono</td>
+</tr>
+<tr>
+<td>Body Regular</td>
+<td><p class="text-base text-neutral-600 leading-relaxed max-w-xl">A collection of my latest design and development work, crafted as polished, cohesive experiences.</p></td>
+<td>16px · 400</td>
+</tr>
+<tr>
+<td>Body Small (mono)</td>
+<td><p class="text-sm text-neutral-500 font-geist-mono">Creating intuitive interfaces with a frictionless experience.</p></td>
+<td>14px · mono</td>
+</tr>
+<tr>
+<td>Label / Eyebrow</td>
+<td><span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-geist-mono">Selected Work</span></td>
+<td>12px · 700 · uppercase</td>
+</tr>
+<tr>
+<td>Nav Link</td>
+<td><span class="text-xs font-medium text-neutral-500 uppercase tracking-wide">projetos</span></td>
+<td>12px · 500 · uppercase</td>
+</tr>
+<tr>
+<td>Meta / Caption</td>
+<td><span class="text-xs text-neutral-500 font-geist-mono font-medium">2024 · Fintech</span></td>
+<td>12px · mono</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- 2) Colors & Surfaces -->
+<section id="colors" class="ds-section w-full bg-neutral-50 py-24 px-6 md:px-12 border-t border-neutral-200">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-3 mb-6">
+<span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-geist-mono">02 — Foundations</span>
+<div class="h-px flex-1 bg-neutral-200"></div>
+</div>
+<h2 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-12 leading-[0.9]">Colors &amp; Surfaces</h2>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Neutral Scale</h3>
+<div class="color-grid mb-16">
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#ffffff;border-bottom:1px solid #eee;"></div><div class="color-swatch-info"><div class="color-swatch-name">White</div><div class="color-swatch-value">#ffffff · bg-white</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#fafafa;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 50</div><div class="color-swatch-value">#fafafa</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#f5f5f5;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 100</div><div class="color-swatch-value">#f5f5f5</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#e5e5e5;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 200</div><div class="color-swatch-value">#e5e5e5</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#d4d4d4;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 300</div><div class="color-swatch-value">#d4d4d4</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#a3a3a3;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 400</div><div class="color-swatch-value">#a3a3a3</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#737373;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 500</div><div class="color-swatch-value">#737373</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#525252;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 600</div><div class="color-swatch-value">#525252</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#262626;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 800</div><div class="color-swatch-value">#262626</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#171717;"></div><div class="color-swatch-info"><div class="color-swatch-name">Neutral 900</div><div class="color-swatch-value">#171717 · text base</div></div></div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Accent &amp; Signal</h3>
+<div class="color-grid mb-16">
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#D4AF37;"></div><div class="color-swatch-info"><div class="color-swatch-name">Gold (3D Sparks)</div><div class="color-swatch-value">#D4AF37</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#2563eb;"></div><div class="color-swatch-info"><div class="color-swatch-name">Blue 600 · Design</div><div class="color-swatch-value">#2563eb</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#9333ea;"></div><div class="color-swatch-info"><div class="color-swatch-name">Purple 600 · Dev</div><div class="color-swatch-value">#9333ea</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#059669;"></div><div class="color-swatch-info"><div class="color-swatch-name">Emerald 600 · Brand</div><div class="color-swatch-value">#059669</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#22c55e;"></div><div class="color-swatch-info"><div class="color-swatch-name">Green 500 · Status</div><div class="color-swatch-value">#22c55e</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#15803d;"></div><div class="color-swatch-info"><div class="color-swatch-name">Green 700 · Status txt</div><div class="color-swatch-value">#15803d</div></div></div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Soft Tints (Tag Backgrounds)</h3>
+<div class="color-grid mb-16">
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#eff6ff;"></div><div class="color-swatch-info"><div class="color-swatch-name">Blue 50</div><div class="color-swatch-value">#eff6ff · bg-blue-50</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#faf5ff;"></div><div class="color-swatch-info"><div class="color-swatch-name">Purple 50</div><div class="color-swatch-value">#faf5ff · bg-purple-50</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#ecfdf5;"></div><div class="color-swatch-info"><div class="color-swatch-name">Emerald 50</div><div class="color-swatch-value">#ecfdf5 · bg-emerald-50</div></div></div>
+<div class="color-swatch"><div class="color-swatch-preview" style="background:#f0fdf4;"></div><div class="color-swatch-info"><div class="color-swatch-name">Green 50</div><div class="color-swatch-value">#f0fdf4 · bg-green-50</div></div></div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Surfaces &amp; Borders</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+<div class="p-6 bg-white rounded-2xl border border-neutral-200"><div class="text-sm font-medium mb-1">Card Surface</div><div class="text-xs text-neutral-500 font-geist-mono">bg-white · border-neutral-200</div></div>
+<div class="p-6 bg-neutral-50 rounded-2xl border border-neutral-200"><div class="text-sm font-medium mb-1">Subtle Surface</div><div class="text-xs text-neutral-500 font-geist-mono">bg-neutral-50</div></div>
+<div class="p-6 bg-neutral-100 rounded-2xl border border-neutral-100"><div class="text-sm font-medium mb-1">Muted Surface</div><div class="text-xs text-neutral-500 font-geist-mono">bg-neutral-100</div></div>
+<div class="p-6 bg-neutral-900 rounded-2xl"><div class="text-sm font-medium mb-1 text-white">Inverted Surface</div><div class="text-xs text-neutral-400 font-geist-mono">bg-neutral-900</div></div>
+</div>
+</div>
+</section>
+
+<!-- 3) UI Components -->
+<section id="components" class="ds-section w-full bg-white py-24 px-6 md:px-12 border-t border-neutral-200">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-3 mb-6">
+<span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-geist-mono">03 — Components</span>
+<div class="h-px flex-1 bg-neutral-200"></div>
+</div>
+<h2 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-12 leading-[0.9]">UI Components</h2>
+
+<!-- Buttons -->
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Buttons</h3>
+<div class="component-showcase mb-16">
+<div class="component-state">
+<div class="component-state-label">Primary</div>
+<a class="px-6 py-3 rounded-lg bg-neutral-900 text-white font-medium hover:bg-neutral-800 transition-colors font-geist-mono text-sm" href="#components">Ver portfolio</a>
+</div>
+<div class="component-state">
+<div class="component-state-label">Secondary</div>
+<a class="px-6 py-3 rounded-lg border border-neutral-200 text-neutral-900 font-medium hover:bg-neutral-50 transition-colors font-geist-mono text-sm" href="#components">Falar no Whatsapp</a>
+</div>
+<div class="component-state">
+<div class="component-state-label">Pill / Outline</div>
+<a class="inline-flex items-center gap-2 px-8 py-4 bg-white border border-neutral-200 rounded-full text-neutral-900 hover:bg-neutral-50 transition-all font-geist-mono text-sm shadow-sm hover:shadow-md" href="#components">Ver todos os projetos <i class="w-4 h-4" data-lucide="plus"></i></a>
+</div>
+<div class="component-state">
+<div class="component-state-label">Text / Underline</div>
+<button class="group flex items-center gap-2 text-xs font-bold tracking-widest uppercase border-b border-black pb-1 hover:text-neutral-600 hover:border-neutral-400 transition-all cursor-pointer">Explorar <span class="group-hover:translate-y-0.5 transition-transform duration-300">↓</span></button>
+</div>
+<div class="component-state">
+<div class="component-state-label">Inline Link</div>
+<a class="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:text-blue-600 transition-colors border-b border-transparent hover:border-blue-600 pb-0.5" href="#components">Ver projeto <i class="w-4 h-4" data-lucide="arrow-right"></i></a>
+</div>
+<div class="component-state">
+<div class="component-state-label">Icon Button</div>
+<button class="group grid place-items-center text-neutral-400 hover:text-black hover:bg-neutral-100 transition w-10 h-10 rounded-full cursor-pointer border border-neutral-200"><i class="w-4 h-4" data-lucide="home"></i></button>
+</div>
+</div>
+
+<!-- Side rail (signature nav) -->
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Side Rail Navigation</h3>
+<div class="mb-16">
+<div class="inline-flex flex-col gap-2 bg-white border-neutral-200 border rounded-full p-2 shadow-lg items-center">
+<button class="group grid place-items-center hover:text-black hover:bg-neutral-100 transition relative text-black bg-neutral-100 w-10 h-10 rounded-full cursor-pointer"><i class="w-4 h-4" data-lucide="home"></i></button>
+<button class="group grid place-items-center hover:text-black hover:bg-neutral-100 transition relative text-neutral-400 w-10 h-10 rounded-full cursor-pointer"><i class="w-4 h-4" data-lucide="briefcase"></i></button>
+<button class="group grid place-items-center hover:text-black hover:bg-neutral-100 transition relative text-neutral-400 w-10 h-10 rounded-full cursor-pointer"><i class="w-4 h-4" data-lucide="user"></i></button>
+<button class="group grid place-items-center hover:text-black hover:bg-neutral-100 transition relative text-neutral-400 w-10 h-10 rounded-full cursor-pointer"><i class="w-4 h-4" data-lucide="mail"></i></button>
+</div>
+</div>
+
+<!-- Inputs -->
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Inputs</h3>
+<div class="component-showcase mb-16">
+<div class="component-state">
+<div class="component-state-label">Text Field</div>
+<input class="w-72 px-4 py-3 bg-white border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-400 transition-all text-neutral-900 placeholder:text-neutral-400 font-geist-mono text-sm" placeholder="seu@email.com" type="email"/>
+</div>
+<div class="component-state">
+<div class="component-state-label">Search (icon)</div>
+<div class="relative w-72 flex items-center group">
+<i class="absolute left-4 w-4 h-4 text-neutral-400 group-focus-within:text-neutral-900 transition-colors" data-lucide="search"></i>
+<input class="w-full pl-11 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-900/10 focus:bg-white transition-all text-neutral-900 placeholder:text-neutral-400 font-geist-mono text-sm" placeholder="Buscar projetos" type="text"/>
+</div>
+</div>
+<div class="component-state">
+<div class="component-state-label">Inline Submit</div>
+<form class="w-80 relative flex items-center">
+<input class="w-full pl-4 pr-28 py-3 bg-white border border-neutral-200 rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-900/10 transition-all text-neutral-900 placeholder:text-neutral-400 font-geist-mono text-sm" placeholder="art.lover@example.com" type="email"/>
+<button class="absolute right-1.5 top-1.5 bottom-1.5 px-5 bg-neutral-900 text-white rounded-full text-xs font-medium hover:bg-neutral-800 transition-colors font-geist-mono" type="button">Subscribe</button>
+</form>
+</div>
+</div>
+
+<!-- Badges & Tags -->
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Badges &amp; Tags</h3>
+<div class="component-showcase mb-16">
+<div class="component-state">
+<div class="component-state-label">Category (Design)</div>
+<div class="inline-flex gap-2 items-center bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium font-geist-mono border border-blue-100"><i class="w-3 h-3" data-lucide="paintbrush"></i> Design</div>
+</div>
+<div class="component-state">
+<div class="component-state-label">Category (Dev)</div>
+<div class="inline-flex gap-2 items-center bg-purple-50 text-purple-600 px-3 py-1 rounded-full text-xs font-medium font-geist-mono border border-purple-100"><i class="w-3 h-3" data-lucide="code-2"></i> Development</div>
+</div>
+<div class="component-state">
+<div class="component-state-label">Category (Brand)</div>
+<div class="inline-flex gap-2 items-center bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-xs font-medium font-geist-mono border border-emerald-100"><i class="w-3 h-3" data-lucide="layout"></i> Branding</div>
+</div>
+<div class="component-state">
+<div class="component-state-label">Tech Tag</div>
+<span class="px-3 py-1 text-xs bg-neutral-100 text-neutral-600 border border-neutral-200 rounded-full font-geist-mono">React</span>
+</div>
+<div class="component-state">
+<div class="component-state-label">Status (live)</div>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 border border-green-200 text-xs font-geist-mono">
+<span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span></span>
+Disponível para oportunidades
+</div>
+</div>
+</div>
+
+<!-- Service Cards -->
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Service Cards</h3>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+<!-- Design card -->
+<div class="group bg-white border border-neutral-200 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+<div class="h-40 mb-6 bg-neutral-100 rounded-xl overflow-hidden relative border border-neutral-100">
+<div class="absolute inset-4 bg-white shadow-sm rounded-lg border border-neutral-200 p-3">
+<div class="flex gap-1.5 mb-3"><div class="w-2 h-2 rounded-full bg-red-400/80"></div><div class="w-2 h-2 rounded-full bg-amber-400/80"></div><div class="w-2 h-2 rounded-full bg-green-400/80"></div></div>
+<div class="space-y-2"><div class="h-2 w-1/3 bg-neutral-200 rounded-full"></div><div class="grid grid-cols-2 gap-2"><div class="h-14 bg-neutral-50 rounded border border-neutral-100"></div><div class="h-14 bg-neutral-50 rounded border border-neutral-100"></div></div></div>
+</div>
+</div>
+<div class="inline-flex gap-2 items-center bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium font-geist-mono mb-4 border border-blue-100"><i class="w-3 h-3" data-lucide="paintbrush"></i> Design</div>
+<h4 class="text-xl font-semibold text-neutral-900 mb-3">UX/UI Design</h4>
+<p class="text-neutral-500 text-sm leading-relaxed font-geist-mono">Creating intuitive interfaces that offer a frictionless experience. Creativity combined with usability.</p>
+</div>
+<!-- Dev card -->
+<div class="group bg-white border border-neutral-200 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+<div class="h-40 mb-6 bg-neutral-900 rounded-xl overflow-hidden relative border border-neutral-800 flex flex-col">
+<div class="flex items-center px-3 py-2 border-b border-neutral-800"><div class="flex gap-1.5"><div class="w-2 h-2 rounded-full bg-red-500"></div><div class="w-2 h-2 rounded-full bg-yellow-500"></div><div class="w-2 h-2 rounded-full bg-green-500"></div></div></div>
+<div class="p-3 font-geist-mono text-[10px] text-neutral-400 leading-relaxed">
+<span class="text-purple-400">const</span> <span class="text-blue-400">App</span> = () =&gt; {<br/>&nbsp;&nbsp;<span class="text-purple-400">return</span> (<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="text-red-400">div</span> <span class="text-amber-400">className</span>=<span class="text-green-400">"hero"</span>&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="text-red-400">h1</span>&gt;Hello&lt;/<span class="text-red-400">h1</span>&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="text-red-400">div</span>&gt;<br/>&nbsp;&nbsp;)<br/>}
+</div>
+</div>
+<div class="inline-flex gap-2 items-center bg-purple-50 text-purple-600 px-3 py-1 rounded-full text-xs font-medium font-geist-mono mb-4 border border-purple-100"><i class="w-3 h-3" data-lucide="code-2"></i> Development</div>
+<h4 class="text-xl font-semibold text-neutral-900 mb-3">Web Development</h4>
+<p class="text-neutral-500 text-sm leading-relaxed font-geist-mono">Beautiful, performant websites tailored to your brand. Seamless experiences that engage.</p>
+</div>
+<!-- Brand card -->
+<div class="group bg-white border border-neutral-200 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+<div class="h-40 mb-6 bg-neutral-100 rounded-xl overflow-hidden relative border border-neutral-100 flex items-center justify-center p-4">
+<div class="grid grid-cols-3 gap-3 w-full max-w-[200px]"><div class="aspect-square rounded-full bg-neutral-900 shadow-lg"></div><div class="aspect-square rounded-full bg-neutral-400 shadow-lg"></div><div class="aspect-square rounded-full bg-neutral-200 shadow-lg"></div><div class="col-span-3 h-2 rounded-full bg-gradient-to-r from-neutral-900 via-neutral-500 to-neutral-200 mt-2"></div></div>
+</div>
+<div class="inline-flex gap-2 items-center bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-xs font-medium font-geist-mono mb-4 border border-emerald-100"><i class="w-3 h-3" data-lucide="layout"></i> Branding</div>
+<h4 class="text-xl font-semibold text-neutral-900 mb-3">Brand Identity</h4>
+<p class="text-neutral-500 text-sm leading-relaxed font-geist-mono">Cohesive brand systems with crafted palettes, typography, and visual elements that resonate.</p>
+</div>
+</div>
+
+<!-- Project Card -->
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Project Card (Split)</h3>
+<div class="group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16 bg-neutral-50 border border-neutral-200 rounded-2xl p-8">
+<div>
+<div class="flex items-center gap-2 mb-4"><span class="text-xs text-neutral-500 font-geist-mono font-medium">2024</span><div class="h-1 w-1 rounded-full bg-neutral-300"></div><span class="text-xs text-neutral-500 font-geist-mono font-medium">Fintech</span></div>
+<h4 class="text-2xl font-bold text-neutral-900 mb-4">SaaS Dashboard</h4>
+<p class="text-neutral-600 mb-6 leading-relaxed font-geist-mono text-sm">A comprehensive dashboard for a fintech startup, featuring real-time analytics, user management and financial insights.</p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-3 py-1 text-xs bg-neutral-100 text-neutral-600 border border-neutral-200 rounded-full font-geist-mono">React</span>
+<span class="px-3 py-1 text-xs bg-neutral-100 text-neutral-600 border border-neutral-200 rounded-full font-geist-mono">TypeScript</span>
+<span class="px-3 py-1 text-xs bg-neutral-100 text-neutral-600 border border-neutral-200 rounded-full font-geist-mono">D3.js</span>
+</div>
+<a class="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:text-blue-600 transition-colors border-b border-transparent hover:border-blue-600 pb-0.5" href="#components">Ver projeto <i class="w-4 h-4" data-lucide="arrow-right"></i></a>
+</div>
+<div>
+<div class="rounded-xl overflow-hidden border border-neutral-200 shadow-xl bg-white group-hover:-translate-y-2 transition-transform duration-500 aspect-[4/3] flex items-center justify-center">
+<i class="w-10 h-10 text-neutral-300" data-lucide="image"></i>
+</div>
+</div>
+</div>
+
+<!-- Testimonial -->
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Testimonial</h3>
+<div class="bg-neutral-50 border border-neutral-200 rounded-2xl p-10 text-center mb-4">
+<i class="w-8 h-8 mx-auto text-neutral-300 mb-6" data-lucide="quote"></i>
+<h3 class="text-2xl md:text-3xl font-medium text-neutral-900 leading-tight mb-8 max-w-3xl mx-auto">"Jonathan é um dos melhores profissionais com quem tive a oportunidade de trabalhar, principalmente por sua capacidade de superar expectativas observando detalhes que poucos se atentam."</h3>
+<div class="flex items-center justify-center gap-4">
+<div class="w-12 h-12 rounded-full bg-neutral-200 overflow-hidden flex items-center justify-center"><i class="w-5 h-5 text-neutral-400" data-lucide="user"></i></div>
+<div class="text-left"><div class="font-bold text-neutral-900 text-sm">Victor Gonçalves</div><div class="text-neutral-500 text-xs font-geist-mono">Chief Digital Officer @Verity</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 4) Layout & Spacing -->
+<section id="layout" class="ds-section w-full bg-neutral-50 py-24 px-6 md:px-12 border-t border-neutral-200">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-3 mb-6">
+<span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-geist-mono">04 — System</span>
+<div class="h-px flex-1 bg-neutral-200"></div>
+</div>
+<h2 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-12 leading-[0.9]">Layout &amp; Spacing</h2>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Container</h3>
+<div class="bg-white rounded-2xl p-8 border border-neutral-200 mb-16">
+<div class="text-sm font-medium mb-2">Content max-width</div>
+<div class="text-xs text-neutral-500 font-geist-mono mb-4">max-w-7xl mx-auto · px-6 md:px-12 · seções alternando bg-white / bg-neutral-50</div>
+<div class="h-16 bg-neutral-100 rounded-lg border border-neutral-200 flex items-center justify-center text-xs text-neutral-500 font-geist-mono">max-w-7xl (1280px)</div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Border Radius</h3>
+<div class="flex flex-wrap gap-6 mb-16">
+<div class="flex flex-col items-center gap-2"><div class="w-20 h-20 bg-white border border-neutral-300 rounded-lg"></div><span class="text-xs text-neutral-500 font-geist-mono">rounded-lg · 8px</span></div>
+<div class="flex flex-col items-center gap-2"><div class="w-20 h-20 bg-white border border-neutral-300 rounded-xl"></div><span class="text-xs text-neutral-500 font-geist-mono">rounded-xl · 12px</span></div>
+<div class="flex flex-col items-center gap-2"><div class="w-20 h-20 bg-white border border-neutral-300 rounded-2xl"></div><span class="text-xs text-neutral-500 font-geist-mono">rounded-2xl · 16px</span></div>
+<div class="flex flex-col items-center gap-2"><div class="w-20 h-20 bg-white border border-neutral-300 rounded-full"></div><span class="text-xs text-neutral-500 font-geist-mono">rounded-full</span></div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Spacing Scale</h3>
+<div class="space-y-4 mb-16">
+<div class="flex items-center gap-4"><div class="w-6 h-6 bg-neutral-900 rounded"></div><span class="text-sm font-geist-mono text-neutral-600">6px · gap-1.5</span></div>
+<div class="flex items-center gap-4"><div class="w-8 h-8 bg-neutral-900 rounded"></div><span class="text-sm font-geist-mono text-neutral-600">8px · gap-2</span></div>
+<div class="flex items-center gap-4"><div class="w-12 h-12 bg-neutral-900 rounded"></div><span class="text-sm font-geist-mono text-neutral-600">12px · gap-3</span></div>
+<div class="flex items-center gap-4"><div class="w-16 h-16 bg-neutral-900 rounded"></div><span class="text-sm font-geist-mono text-neutral-600">16px · gap-4 / p-4</span></div>
+<div class="flex items-center gap-4"><div class="w-24 h-24 bg-neutral-900 rounded"></div><span class="text-sm font-geist-mono text-neutral-600">24px · gap-6 / p-6</span></div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Shadows</h3>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100"><div class="text-sm font-medium mb-1">shadow-sm</div><div class="text-xs text-neutral-500 font-geist-mono">inputs, pills</div></div>
+<div class="bg-white rounded-2xl p-6 shadow-lg"><div class="text-sm font-medium mb-1">shadow-lg</div><div class="text-xs text-neutral-500 font-geist-mono">side rail, floating</div></div>
+<div class="bg-white rounded-2xl p-6 shadow-xl"><div class="text-sm font-medium mb-1">shadow-xl</div><div class="text-xs text-neutral-500 font-geist-mono">project media, hover</div></div>
+<div class="bg-white rounded-2xl p-6 shadow-2xl"><div class="text-sm font-medium mb-1">shadow-2xl</div><div class="text-xs text-neutral-500 font-geist-mono">emphasis cards</div></div>
+</div>
+</div>
+</section>
+
+<!-- 5) Motion & Interaction -->
+<section id="motion" class="ds-section w-full bg-white py-24 px-6 md:px-12 border-t border-neutral-200">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-3 mb-6">
+<span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-geist-mono">05 — System</span>
+<div class="h-px flex-1 bg-neutral-200"></div>
+</div>
+<h2 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-12 leading-[0.9]">Motion &amp; Interaction</h2>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Hover Effects</h3>
+<div class="component-showcase mb-16">
+<div class="component-state">
+<div class="component-state-label">Lift Card</div>
+<div class="w-56 bg-white border border-neutral-200 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"><div class="text-sm font-medium text-neutral-900">Hover me</div><div class="text-xs text-neutral-500 font-geist-mono mt-1">hover:-translate-y-1</div></div>
+</div>
+<div class="component-state">
+<div class="component-state-label">Arrow Nudge</div>
+<button class="px-6 py-3 bg-neutral-900 text-white rounded-lg font-medium flex items-center justify-center gap-3 group transition-all font-geist-mono text-sm"><span>Ver projeto</span><i class="w-4 h-4 group-hover:translate-x-1 transition-transform" data-lucide="arrow-right"></i></button>
+</div>
+<div class="component-state">
+<div class="component-state-label">Grayscale Reveal</div>
+<div class="w-40 h-48 rounded-2xl overflow-hidden bg-neutral-200 grayscale hover:grayscale-0 transition-all duration-700 flex items-center justify-center cursor-pointer"><i class="w-8 h-8 text-neutral-400" data-lucide="user"></i></div>
+</div>
+<div class="component-state">
+<div class="component-state-label">Underline Grow</div>
+<a class="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:text-blue-600 transition-colors border-b border-transparent hover:border-blue-600 pb-0.5" href="#motion">Hover Link <i class="w-4 h-4" data-lucide="arrow-up-right"></i></a>
+</div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Duration &amp; Easing</h3>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+<div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-200"><div class="text-sm font-medium mb-1">Fast</div><div class="text-xs text-neutral-500 font-geist-mono">transition-colors · ~200ms</div></div>
+<div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-200"><div class="text-sm font-medium mb-1">Medium</div><div class="text-xs text-neutral-500 font-geist-mono">duration-300 · cards</div></div>
+<div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-200"><div class="text-sm font-medium mb-1">Slow</div><div class="text-xs text-neutral-500 font-geist-mono">duration-500 · media lift</div></div>
+<div class="bg-neutral-50 rounded-2xl p-6 border border-neutral-200"><div class="text-sm font-medium mb-1">Image</div><div class="text-xs text-neutral-500 font-geist-mono">duration-700 · grayscale</div></div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-8">Animations</h3>
+<div class="component-showcase mb-4">
+<div class="component-state">
+<div class="component-state-label">Pulse (status)</div>
+<div class="flex items-center gap-3"><span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span><span class="text-sm font-geist-mono text-neutral-600">animate-pulse</span></div>
+</div>
+<div class="component-state">
+<div class="component-state-label">Ping (live dot)</div>
+<div class="flex items-center gap-3"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span></span><span class="text-sm font-geist-mono text-neutral-600">animate-ping</span></div>
+</div>
+<div class="component-state">
+<div class="component-state-label">3D Torus (hero)</div>
+<div class="flex items-center gap-3"><i class="w-5 h-5 text-neutral-500" data-lucide="box"></i><span class="text-sm font-geist-mono text-neutral-600">Three.js wireframe + gold sparks</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 6) Icons -->
+<section id="icons" class="ds-section w-full bg-neutral-50 py-24 px-6 md:px-12 border-t border-neutral-200">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-3 mb-6">
+<span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-geist-mono">06 — Assets</span>
+<div class="h-px flex-1 bg-neutral-200"></div>
+</div>
+<h2 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-6 leading-[0.9]">Icons</h2>
+<p class="text-lg text-neutral-500 mb-12 font-geist-mono max-w-2xl">Lucide (v0.575) via <code class="text-neutral-700">data-lucide</code>. Herdam a cor do texto (currentColor) e o tamanho por <code class="text-neutral-700">w-* h-*</code>.</p>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Size Variants</h3>
+<div class="flex items-end gap-8 mb-16">
+<div class="flex flex-col items-center gap-2"><i class="w-4 h-4 text-neutral-800" data-lucide="briefcase"></i><span class="text-xs text-neutral-500 font-geist-mono">16px</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-5 h-5 text-neutral-800" data-lucide="briefcase"></i><span class="text-xs text-neutral-500 font-geist-mono">20px</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="briefcase"></i><span class="text-xs text-neutral-500 font-geist-mono">24px</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-8 h-8 text-neutral-800" data-lucide="briefcase"></i><span class="text-xs text-neutral-500 font-geist-mono">32px</span></div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Color Variants</h3>
+<div class="flex items-center gap-8 mb-16">
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-900" data-lucide="heart"></i><span class="text-xs text-neutral-500 font-geist-mono">neutral-900</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-500" data-lucide="heart"></i><span class="text-xs text-neutral-500 font-geist-mono">neutral-500</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-400" data-lucide="heart"></i><span class="text-xs text-neutral-500 font-geist-mono">neutral-400</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-blue-600" data-lucide="heart"></i><span class="text-xs text-neutral-500 font-geist-mono">blue-600</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-emerald-600" data-lucide="heart"></i><span class="text-xs text-neutral-500 font-geist-mono">emerald-600</span></div>
+</div>
+
+<h3 class="text-xl font-semibold text-neutral-900 mb-6">Common Icons</h3>
+<div class="grid grid-cols-4 md:grid-cols-8 gap-6">
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="home"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">home</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="briefcase"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">briefcase</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="user"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">user</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="mail"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">mail</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="arrow-right"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">arrow-right</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="arrow-down-right"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">arrow-down-right</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="paintbrush"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">paintbrush</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="code-2"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">code-2</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="layout"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">layout</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="quote"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">quote</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="plus"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">plus</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="search"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">search</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="heart"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">heart</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="arrow-up-right"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">arrow-up-right</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="image"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">image</span></div>
+<div class="flex flex-col items-center gap-2"><i class="w-6 h-6 text-neutral-800" data-lucide="box"></i><span class="text-xs text-neutral-500 font-geist-mono text-center">box</span></div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-neutral-200 px-6 sm:px-8">
+<div class="mx-auto max-w-7xl py-12 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
+<div><div class="font-bold text-lg tracking-tight mb-1">ux.jonny <span class="text-neutral-400 font-normal">design system</span></div><p class="text-neutral-500 text-sm font-geist-mono">Documentação de referência · tokens, componentes e interações.</p></div>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 border border-green-200 text-xs font-geist-mono"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span></span>Disponível para oportunidades</div>
+</div>
+</footer>
+
+</main>
+
+<script>
+  // Lucide icons
+  if (window.lucide) lucide.createIcons();
+
+  // Three.js — contained wireframe torus knot with gold sparks (hero clone)
+  const initThreeJS = () => {
+    const container = document.getElementById('canvas-container');
+    if (!container || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0xffffff, 0.002);
+
+    let width = container.clientWidth;
+    let height = container.clientHeight;
+
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    camera.position.z = 30;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0xffffff, 1);
+    container.appendChild(renderer.domElement);
+
+    const geometry = new THREE.TorusKnotGeometry(9, 2.5, 120, 16);
+    const material = new THREE.MeshPhysicalMaterial({
+      color: 0x888888, metalness: 0.5, roughness: 0.1,
+      wireframe: true, transparent: true, opacity: 0.3
+    });
+    const torusKnot = new THREE.Mesh(geometry, material);
+    scene.add(torusKnot);
+
+    const sparkCount = 100;
+    const sparkGeo = new THREE.CircleGeometry(0.15, 3);
+    const sparkMat = new THREE.MeshBasicMaterial({ color: 0xD4AF37, side: THREE.DoubleSide, transparent: true, opacity: 1, depthTest: false });
+    const sparks = new THREE.InstancedMesh(sparkGeo, sparkMat, sparkCount);
+    torusKnot.add(sparks);
+
+    const dummy = new THREE.Object3D();
+    const sparkData = [];
+    const radialSegments = 16, tubularSegments = 120;
+    for (let i = 0; i < sparkCount; i++) {
+      sparkData.push({ speed: 0.001 + Math.random() * 0.002, progress: Math.random(), pathIndex: Math.floor(Math.random() * radialSegments) });
+    }
+    const posAttribute = geometry.attributes.position;
+    const stride = radialSegments + 1;
+    const v1 = new THREE.Vector3(), v2 = new THREE.Vector3();
+
+    function updateSparks() {
+      sparkData.forEach((spark, i) => {
+        spark.progress += spark.speed;
+        if (spark.progress >= 1) spark.progress = 0;
+        const exactInd = spark.progress * tubularSegments;
+        const u = Math.floor(exactInd);
+        const nextU = (u + 1) % tubularSegments;
+        const v = spark.pathIndex;
+        v1.fromArray(posAttribute.array, (u * stride + v) * 3);
+        v2.fromArray(posAttribute.array, (nextU * stride + v) * 3);
+        v1.lerp(v2, exactInd - u);
+        dummy.position.copy(v1);
+        dummy.lookAt(v2);
+        dummy.updateMatrix();
+        sparks.setMatrixAt(i, dummy.matrix);
+      });
+      sparks.instanceMatrix.needsUpdate = true;
+    }
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+    const pLight = new THREE.PointLight(0xD4AF37, 1, 50);
+    pLight.position.set(10, 10, 10);
+    scene.add(pLight);
+
+    let mouseX = 0, mouseY = 0;
+    const halfX = window.innerWidth / 2, halfY = window.innerHeight / 2;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX - halfX) * 0.0005;
+      mouseY = (e.clientY - halfY) * 0.0005;
+    });
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      torusKnot.rotation.y += 0.05 * (mouseX * 0.5 - torusKnot.rotation.y) + 0.002;
+      torusKnot.rotation.x += 0.05 * (mouseY * 0.5 - torusKnot.rotation.x) + 0.001;
+      updateSparks();
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    window.addEventListener('resize', () => {
+      width = container.clientWidth; height = container.clientHeight;
+      camera.aspect = width / height; camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+  };
+  window.addEventListener('DOMContentLoaded', initThreeJS);
+  if (document.readyState !== 'loading') initThreeJS();
+</script>
+</body></html>

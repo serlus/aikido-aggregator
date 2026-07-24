@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Icon from '../components/Icon.astro';
+import { futureEvents, fmtRange, COUNTRY_NAMES } from '../lib/db.js';
+
+const events = futureEvents();
+const countries = [...new Set(events.map((e) => e.country).filter(Boolean))].sort();
+const lineages = [...new Map(
+  events.filter((e) => e.lineage).map((e) => [e.lineage, e.lineage_name ?? e.lineage])
+).entries()];
+const hasOnline = events.some((e) => e.online);
+
+const TYPE_BADGE = {
+  seminar: ['Seminário', 'bg-blue-50 text-blue-600 border-blue-100'],
+  event: ['Evento', 'bg-emerald-50 text-emerald-600 border-emerald-100'],
+};
+---
+<Base title="Agenda — AikiHub">
+  <section class="w-full bg-white py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <Eyebrow label="Agenda — eventos futuros" />
+      <h1 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-4 leading-[0.9]">Agenda</h1>
+      <p class="text-lg text-neutral-500 font-mono max-w-2xl mb-12">
+        Seminários e eventos futuros de todas as fontes monitoradas. Clique para ver os detalhes na fonte original.
+      </p>
+
+      <!-- Filtros -->
+      <div class="flex flex-col gap-4 mb-12" id="filters">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono mr-2 inline-flex items-center gap-1.5"><Icon name="globe" class="w-3 h-3" /> País</span>
+          <button data-filter="country" data-value="" class="filter-pill is-active">Todos</button>
+          {countries.map((c) => (
+            <button data-filter="country" data-value={c} class="filter-pill">{COUNTRY_NAMES[c] ?? c}</button>
+          ))}
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono mr-2 inline-flex items-center gap-1.5"><Icon name="network" class="w-3 h-3" /> Linhagem</span>
+          <button data-filter="lineage" data-value="" class="filter-pill is-active">Todas</button>
+          {lineages.map(([id, name]) => (
+            <button data-filter="lineage" data-value={id} class="filter-pill">{name}</button>
+          ))}
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-neutral-400 uppercase tracking-widest font-mono mr-2 inline-flex items-center gap-1.5"><Icon name="filter" class="w-3 h-3" /> Mais</span>
+          <button data-filter="region" data-value="sul_br" class="filter-pill filter-toggle">
+            <Icon name="map-pin" class="w-3 h-3" /> Perto de mim (Sul do Brasil)
+          </button>
+          {hasOnline && (
+            <button data-filter="online" data-value="1" class="filter-pill filter-toggle">
+              <Icon name="wifi" class="w-3 h-3" /> Online
+            </button>
+          )}
+        </div>
+      </div>
+
+      <!-- Lista -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="event-grid">
+        {events.map((e) => {
+          const [typeLabel, typeCls] = TYPE_BADGE[e.title?.toLowerCase().includes('stage') || e.instructor ? 'seminar' : 'event'] ?? TYPE_BADGE.event;
+          return (
+            <a
+              href={e.url} target="_blank" rel="noopener"
+              class="event-card group bg-white border border-neutral-200 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
+              data-country={e.country ?? ''}
+              data-lineage={e.lineage ?? ''}
+              data-region={e.region ?? ''}
+              data-online={e.online ? '1' : '0'}
+            >
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="text-xs text-neutral-900 font-mono font-semibold">{fmtRange(e.starts_at, e.ends_at)}</span>
+                <span class={`inline-flex gap-1.5 items-center px-3 py-1 rounded-full text-xs font-medium font-mono border ${typeCls}`}>{typeLabel}</span>
+              </div>
+              <h3 class="text-lg font-semibold text-neutral-900 mb-4 leading-snug group-hover:text-blue-600 transition-colors">{e.title}</h3>
+              <div class="flex flex-col gap-1.5 text-xs text-neutral-500 font-mono">
+                <span class="inline-flex items-center gap-1.5"><Icon name="map-pin" class="w-3 h-3" />{[e.city, COUNTRY_NAMES[e.country] ?? e.country].filter(Boolean).join(' · ')}</span>
+                {e.instructor && <span class="inline-flex items-center gap-1.5"><Icon name="user" class="w-3 h-3" />{e.instructor}</span>}
+                {e.lineage_name && <span class="inline-flex items-center gap-1.5"><Icon name="network" class="w-3 h-3" />{e.lineage_name}</span>}
+              </div>
+              <div class="mt-5 pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <span class="text-xs text-neutral-400 font-mono">{e.source_name}</span>
+                <Icon name="arrow-up-right" class="w-4 h-4 text-neutral-300 group-hover:text-neutral-900 transition-colors" />
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <div id="empty-state" class="hidden text-center py-24">
+        <Icon name="calendar" class="w-8 h-8 mx-auto text-neutral-300 mb-4" />
+        <p class="text-neutral-500 font-mono text-sm">Nenhum evento futuro com esses filtros.</p>
+        <p class="text-neutral-400 font-mono text-xs mt-2">As fontes do Brasil ainda não publicaram eventos futuros — novos aparecem aqui automaticamente.</p>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .filter-pill {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      padding: 0.375rem 0.875rem; border-radius: 9999px;
+      border: 1px solid var(--color-neutral-200); background: white;
+      font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-neutral-600);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .filter-pill:hover { background: var(--color-neutral-50); }
+    .filter-pill.is-active { background: var(--color-neutral-900); color: white; border-color: var(--color-neutral-900); }
+  </style>
+
+  <script>
+    const state = { country: '', lineage: '', region: '', online: '' };
+    const pills = document.querySelectorAll('.filter-pill');
+    const cards = document.querySelectorAll('.event-card');
+    const empty = document.getElementById('empty-state');
+
+    function apply() {
+      let visible = 0;
+      cards.forEach((card) => {
+        const el = card as HTMLElement;
+        const show =
+          (!state.country || el.dataset.country === state.country) &&
+          (!state.lineage || el.dataset.lineage === state.lineage) &&
+          (!state.region || el.dataset.region === state.region) &&
+          (!state.online || el.dataset.online === state.online);
+        el.classList.toggle('hidden', !show);
+        if (show) visible += 1;
+      });
+      empty?.classList.toggle('hidden', visible > 0);
+    }
+
+    pills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const el = pill as HTMLElement;
+        const group = el.dataset.filter!;
+        const isToggle = el.classList.contains('filter-toggle');
+        if (isToggle) {
+          const on = el.classList.toggle('is-active');
+          state[group] = on ? el.dataset.value! : '';
+        } else {
+          document.querySelectorAll(`.filter-pill[data-filter="${group}"]`)
+            .forEach((p) => p.classList.remove('is-active'));
+          el.classList.add('is-active');
+          state[group] = el.dataset.value!;
+        }
+        apply();
+      });
+    });
+  </script>
+</Base>

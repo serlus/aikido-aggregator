@@ -89,14 +89,18 @@ locais em `.env` (gitignored); p/ o cron, configurar o secret
 ## Fase 4 — Site público v1 (~2–3 fins de semana)
 
 **Entregas:**
-- [ ] Site estático (Astro sugerido) com build disparado pós-ingestão
-- [ ] `/agenda` — eventos futuros, filtros: país, linhagem, presencial/online, "perto de mim" (Sul do Brasil)
-- [ ] `/noticias` — feed agregado com origem e link canônico (respeitando direitos: título + resumo curto + link, nunca conteúdo integral)
-- [ ] `/diretorio` — linhagens → federações → dojos (dados da Fase 1 + pesquisa)
-- [ ] `/status` — painel de saúde dos scrapers (público ou privado)
-- [ ] Deploy: GitHub Pages / Cloudflare Pages (custo zero)
+- [x] Site estático (Astro + Tailwind v4, visual do `design-system.html`) com build disparado pós-ingestão — `site/` + `.github/workflows/site-deploy.yml` (workflow_run após o scrape)
+- [x] `/agenda` — eventos futuros, filtros: país, linhagem, online, "perto de mim" (Sul do Brasil via `events.region=sul_br`)
+- [x] `/noticias` — feed agregado com origem e link canônico (título PT + resumo ≤200 chars + link; nunca conteúdo integral)
+- [x] `/diretorio` — árvore de linhagens (ueshiba → aikikai → …) com federações e dojos do seed
+- [x] `/status` — painel público de saúde por fonte (última coleta, última mudança, streak de falhas)
+- [x] Deploy: GitHub Pages (custo zero) — `make site-dev` / `make site-build` p/ local
 
 **Critério de saída:** site no ar com domínio próprio, atualizando sozinho.
+⏳ código pronto e buildando (5 páginas, testado com e sem BASE_PATH);
+falta: (1) merge p/ main, (2) habilitar Pages no repo (Settings → Pages →
+Source: GitHub Actions), (3) apontar domínio próprio (CNAME + SITE_URL/
+BASE_PATH="/" no workflow) quando o nome for decidido.
 
 ---
 

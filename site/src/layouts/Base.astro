@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+
+const { title = 'AikiHub', description = 'Agregador de notícias, eventos e diretório do aikido — Japão, França, Brasil e América do Sul, em português.' } = Astro.props;
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
+const u = (p) => base + p.replace(/^\//, '');
+const path = Astro.url.pathname;
+const active = (p) =>
+  path === u(p) || path === u(p).replace(/\/$/, '') || path.startsWith(u(p) + '/')
+    ? 'text-black'
+    : 'text-neutral-500';
+
+const nav = [
+  ['agenda', 'Agenda'],
+  ['noticias', 'Notícias'],
+  ['diretorio', 'Diretório'],
+  ['status', 'Status'],
+];
+---
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href={'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">合</text></svg>')} />
+  </head>
+  <body class="bg-white text-neutral-900 antialiased selection:bg-neutral-200 selection:text-black min-h-screen flex flex-col overflow-x-hidden font-sans">
+
+    <nav class="sticky top-0 z-100 bg-white/90 backdrop-blur-md border-b border-neutral-900/8 w-full px-6 md:px-12">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <a href={u('')} class="text-base font-bold tracking-tight text-black py-4">
+          aiki<span class="text-gold">.</span>hub <span class="text-neutral-400 font-normal hidden sm:inline">/ agregador de aikido</span>
+        </a>
+        <div class="flex gap-5 md:gap-7 flex-wrap py-4 items-center">
+          {nav.map(([slug, label]) => (
+            <a
+              href={u(slug + '/')}
+              class={`text-xs font-medium uppercase tracking-wide hover:text-black transition-colors ${active(slug)}`}
+            >{label}</a>
+          ))}
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="bg-white border-t border-neutral-200 px-6 sm:px-8">
+      <div class="mx-auto max-w-7xl py-12 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
+        <div>
+          <div class="font-bold text-lg tracking-tight mb-1">aiki<span class="text-gold">.</span>hub <span class="text-neutral-400 font-normal">agregador</span></div>
+          <p class="text-neutral-500 text-sm font-mono">Título + resumo + link para a fonte original. Conteúdo integral, sempre no site de origem.</p>
+        </div>
+        <a href={u('status/')} class="flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 border border-green-200 text-xs font-mono hover:bg-green-100 transition-colors">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+          </span>
+          Atualizado automaticamente
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
