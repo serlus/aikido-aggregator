@@ -61,12 +61,13 @@ jobs:
 
       - name: Enrich (classify + geo + tradução)
         env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          if [ -n "$ANTHROPIC_API_KEY" ]; then
+          if [ -n "$GOOGLE_API_KEY" ] || [ -n "$ANTHROPIC_API_KEY" ]; then
             uv run scraper/enrich.py
           else
-            echo "::warning::secret ANTHROPIC_API_KEY ausente — tradução pulada"
+            echo "::warning::secrets GOOGLE_API_KEY/ANTHROPIC_API_KEY ausentes — tradução pulada"
             uv run scraper/enrich.py --no-api
           fi
 

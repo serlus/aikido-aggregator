@@ -3,10 +3,8 @@
 
 Uso:  make test   (ou  uv run scraper/tests/test_enricher.py)
 """
-import json
 import sys
 from pathlib import Path
-from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import db as dbmod  # noqa: E402
@@ -53,20 +51,14 @@ def test_geo_pending_fills_lineage_and_region():
     assert stats["region_filled"] == 1 and stats["lineage_filled"] == 1
 
 
-class FakeClient:
-    """Client fake: 'traduz' prefixando PT: e conta as chamadas."""
+class FakeTranslator:
+    """translate_fn fake: 'traduz' prefixando PT: e conta as chamadas."""
     def __init__(self):
         self.calls = 0
-        self.messages = SimpleNamespace(create=self._create)
 
-    def _create(self, **kwargs):
+    def __call__(self, batch):
         self.calls += 1
-        prompt = kwargs["messages"][0]["content"]
-        items = json.loads(prompt.split("\n", 1)[1])
-        out = {"translations": [{"id": it["id"], "pt": f"PT: {it['text']}"} for it in items]}
-        return SimpleNamespace(
-            content=[SimpleNamespace(type="text", text=json.dumps(out, ensure_ascii=False))]
-        )
+        return {i: f"PT: {text}" for i, text in batch}
 
 
 def test_translate_copia_pt_e_usa_cache():
@@ -80,8 +72,8 @@ def test_translate_copia_pt_e_usa_cache():
             (3, "src", "u3", "fr", "Stage à Paris", None),  # mesmo título do 2
         ],
     )
-    fake = FakeClient()
-    stats = translate.translate_pending(conn, client=fake)
+    fake = FakeTranslator()
+    stats = translate.translate_pending(conn, translate_fn=fake)
 
     t1, t2, t3 = [conn.execute("SELECT title_pt FROM items WHERE id=?", (i,)).fetchone()[0]
                   for i in (1, 2, 3)]
@@ -93,7 +85,7 @@ def test_translate_copia_pt_e_usa_cache():
 
     # segunda rodada: nada pendente, nenhuma chamada nova
     conn.execute("INSERT INTO items (id, source_id, url, lang, title) VALUES (4,'src','u4','fr','Stage à Paris')")
-    stats2 = translate.translate_pending(conn, client=fake)
+    stats2 = translate.translate_pending(conn, translate_fn=fake)
     assert stats2["cache_hits"] == 1 and stats2["api"] == 0
     assert fake.calls == 1
 
