@@ -1,6 +1,6 @@
 # Makefile — atalhos do agregador. Tudo roda via uv (uv.lock é a fonte de verdade).
 
-.PHONY: sync probe report ingest test
+.PHONY: sync probe report ingest test enrich
 
 sync:            ## instala deps do lockfile
 	uv sync --locked
@@ -11,8 +11,12 @@ probe:           ## Fase 0: probe hash-only de todas as fontes
 report:          ## Fase 0: regenera reports/frequency-report.md
 	uv run scraper/report.py
 
-test:            ## testes offline dos parsers (fixtures, sem rede)
+test:            ## testes offline (fixtures, sem rede)
 	uv run scraper/tests/test_parsers.py
+	uv run scraper/tests/test_enricher.py
+
+enrich:          ## Fase 3: classifica, geocodifica e traduz pendências
+	uv run scraper/enrich.py
 
 ingest:          ## Fase 1: make ingest SOURCE=daisho_criciuma (sem SOURCE = todas)
 ifdef SOURCE

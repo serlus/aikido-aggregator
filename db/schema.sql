@@ -58,7 +58,8 @@ CREATE TABLE IF NOT EXISTS events (         -- extensão de items tipo event/sem
   online     INTEGER DEFAULT 0,
   instructor TEXT,
   lineage    TEXT,
-  org_id     TEXT REFERENCES orgs(id)
+  org_id     TEXT REFERENCES orgs(id),
+  region     TEXT                            -- sul_br | brasil | america_sul | europa | japao | outro (Fase 3, filtro local/remoto)
 );
 CREATE INDEX IF NOT EXISTS idx_events_starts ON events(starts_at);
 
