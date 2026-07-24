@@ -1,0 +1,18 @@
+# blocklist.yml — domínios que NUNCA devem ser acessados pelos scrapers
+# O fetcher/probe checa esta lista antes de qualquer request.
+
+blocked:
+  - domain: aikikai.com.br
+    reason: >
+      Página /cadastro.php redireciona para domínio de phishing
+      (validacao-de-seguranca.com.br). Detectado em 2026-07-23.
+      O site legítimo da entidade migrou para aikikai.org.br (verificado
+      2026-07, fonte 'takemussu_brazil_aikikai' em sources.yml). O .com.br
+      segue no ar e ainda é linkado pelo site novo — manter bloqueado.
+      Reavaliar apenas se o domínio for comprovadamente recuperado.
+
+  - domain: aikidobr.com.br
+    reason: robots.txt disallow para acesso automatizado. Consulta manual apenas.
+
+  - domain: mapaosc.ipea.gov.br
+    reason: robots.txt disallow. Consulta manual apenas.

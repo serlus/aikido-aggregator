@@ -1,0 +1,191 @@
+# sources.yml — Catálogo de fontes do agregador de aikido
+# cadence é PROVISÓRIA — a Fase 0 (probe diário) gera a recomendação real.
+# engine é HIPÓTESE — o --discover do probe confirma wp_json/rss.
+# robots começa "pending" — o probe atualiza para allowed/disallowed no 1º run.
+
+sources:
+  # ══════════ JAPÃO ══════════
+  - id: aikikai_jp
+    name: Aikikai Foundation (Hombu Dojo)
+    url: https://www.aikikai.or.jp/eng/
+    country: JP
+    lang: [ja, en]
+    lineage: aikikai
+    engine: http
+    cadence: weekly
+    priority: 1
+
+  - id: iwama_shinshin
+    name: Iwama Shinshin Aikishuren Kai
+    url: https://iwamashinshinaikido.com/
+    country: JP
+    lang: [ja, en]
+    lineage: iwama_saito
+    engine: http
+    cadence: weekly
+    priority: 1
+
+  - id: yoshinkan_jp
+    name: Yoshinkan Aikido Honbu
+    url: https://www.yoshinkan.net/
+    country: JP
+    lang: [ja, en]
+    lineage: yoshinkan
+    engine: http
+    cadence: monthly
+    priority: 2
+
+  # ══════════ FRANÇA ══════════
+  - id: ffaaa_fr
+    name: FFAAA — Fédération Française d'Aïkido, Aïkibudo et Affinitaires
+    url: https://www.aikido.com.fr/
+    country: FR
+    lang: [fr]
+    lineage: tissier_ffaaa
+    engine: http
+    cadence: weekly
+    priority: 1
+
+  - id: cercle_tissier
+    name: Cercle Christian Tissier (Vincennes)
+    url: https://www.cercletissier.fr/
+    country: FR
+    lang: [fr]
+    lineage: tissier_ffaaa
+    engine: http
+    cadence: weekly
+    priority: 1
+
+  # ══════════ BRASIL ══════════
+  - id: aikido_parana
+    name: Aikido Paraná Brasil
+    url: https://aikidoparanabrasil.com.br/
+    country: BR
+    lang: [pt]
+    lineage: kawai
+    engine: wp_json
+    cadence: weekly
+    priority: 1
+
+  - id: shoyukan_br
+    name: Shoyukan Aikikai Brasil
+    url: https://shoyukanaikikaibrasil.com.br/
+    country: BR
+    lang: [pt]
+    lineage: tissier_ffaaa
+    engine: wp_json
+    cadence: biweekly
+    priority: 1
+
+  - id: acai_sc
+    name: ACAI — Associação Catarinense de Aikidō
+    url: http://www.aikidosc.org.br/
+    country: BR
+    lang: [pt]
+    lineage: kawai
+    engine: wp_json
+    cadence: biweekly
+    priority: 1
+
+  - id: ica_sc
+    name: ICA — Instituto Catarinense de Aikido
+    url: https://aikidokas.com.br/ica/
+    country: BR
+    lang: [pt]
+    lineage: kawai
+    engine: http
+    cadence: monthly
+    priority: 2
+
+  - id: daisho_criciuma
+    name: Daishō Aikido Dojo (Criciúma/SC)
+    url: https://www.aikidocriciuma.com.br/
+    country: BR
+    lang: [pt]
+    lineage: kawai
+    engine: http
+    cadence: monthly
+    priority: 2
+
+  - id: febrai
+    name: FEBRAI — Federação Brasileira de Aikido
+    url: https://aikidofebrai.com.br/
+    country: BR
+    lang: [pt]
+    lineage: aikikai
+    engine: http
+    cadence: monthly
+    priority: 2
+
+  - id: fepai
+    name: FEPAI-Brasil — Federação Paulista de Aikido
+    url: https://www.fepai.org.br/
+    country: BR
+    lang: [pt]
+    lineage: aikikai
+    engine: http
+    cadence: monthly
+    priority: 2
+
+  - id: minas_aikido
+    name: Federação Mineira de Aikido
+    url: https://www.minasaikido.com.br/
+    country: BR
+    lang: [pt]
+    lineage: aikikai
+    engine: headless   # site JS-rendered — probe http registra só o shell
+    cadence: monthly
+    priority: 2
+
+  - id: takemussu_brazil_aikikai
+    name: Instituto Takemussu / Confederação Brasileira de Aikido - Brazil Aikikai
+    url: http://aikikai.org.br/
+    country: BR
+    lang: [pt]
+    lineage: aikikai   # Wagner Bull Shihan 7º Dan, reconhecido pelo Hombu Dojo
+    engine: http       # single-page estático (template 2016) — mudança rara esperada
+    cadence: monthly
+    priority: 2
+    # NOTA: substitui aikikai.com.br (bloqueado por phishing). Verificado 2026-07.
+    # O site .org.br ainda contém link para o domínio .com.br antigo — nunca segui-lo.
+
+  - id: ame_no_iwaya
+    name: Dojô Ame no Iwaya (Viamão/RS)
+    url: https://www.aikido-amenoiwaya.com.br/
+    country: BR
+    lang: [pt]
+    lineage: kumano_anno
+    engine: http
+    cadence: monthly
+    priority: 2
+
+  - id: aikidoba
+    name: ABAI — Federação Baiana de Aikido
+    url: https://www.aikidoba.com.br/
+    country: BR
+    lang: [pt]
+    lineage: aikikai
+    engine: http
+    cadence: monthly
+    priority: 3
+
+  # ══════════ ARGENTINA / CHILE ══════════
+  - id: fedenachaa_cl
+    name: FEDENACHAA (Chile)
+    url: https://www.fedenachaa.cl/
+    country: CL
+    lang: [es]
+    lineage: tissier_ffaaa
+    engine: http
+    cadence: monthly
+    priority: 3
+
+  - id: circulo_aikikai_ar
+    name: Círculo Aikikai (Argentina)
+    url: https://www.circuloaikikai.com.ar/
+    country: AR
+    lang: [es]
+    lineage: tissier_ffaaa
+    engine: http
+    cadence: monthly
+    priority: 3
