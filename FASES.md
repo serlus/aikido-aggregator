@@ -57,13 +57,16 @@ estática (sugestão: aikidocriciuma.com.br — simples e estável) gravando raw
 5. **FEBRAI** (PHP legado, mas só 3-4 posts/ano — parser simples, cadência mensal)
 
 **Entregas:**
-- [ ] 1 parser isolado por fonte (`parsers/{source}.py`), testável offline contra raw salvo
-- [ ] Testes de parser usando fixtures de HTML real
-- [ ] Extração de eventos: título, data(s), cidade/país, instrutor, link
-- [ ] GitHub Actions com crons separados por cadência (definidos pela Fase 0)
+- [x] 1 parser isolado por fonte (`parsers/{source}.py`), testável offline contra raw salvo — dedicados: `aikikai_jp` (API JSON própria do site, descoberta no fonte da página), `aikikai_jp_agenda`, `christian_tissier_agenda`, `iwama_shinshin`, `febrai`; genéricos por engine: `wp_json` (ffaaa_fr, acai_sc, fepai, aikido_parana e ica_sc via `endpoints:` pages) e `rss`
+- [x] Testes de parser usando fixtures de HTML real — `scraper/tests/` (9 testes, `make test`)
+- [x] Extração de eventos: título, data(s), cidade/país, instrutor, link — agenda Hombu (JSON) + stages Tissier (datas em francês, país por parênteses, instrutor por heurística)
+- [x] GitHub Actions com crons separados por cadência — `.github/workflows/scrape.yml` (weekly seg / biweekly 1,15 / monthly dia 2; cadências provisórias até a Fase 0 fechar)
 
 **Critério de saída:** ≥ 5 fontes com parser rodando em produção;
-eventos futuros JP/FR aparecendo na tabela `events`.
+eventos futuros JP/FR aparecendo na tabela `events`. ✅ 2026-07-24:
+10 fontes ingerindo (5 parsers dedicados + wp_json×5), 13 eventos
+futuros JP/FR/CZ/DE/IT/BE em `events` com data, local e instrutor.
+"Produção" efetiva quando o branch mergear e os crons rodarem.
 
 ---
 

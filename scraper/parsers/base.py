@@ -19,4 +19,13 @@ class Item:
     published_at: str | None = None   # UTC ISO-8601 quando a fonte informar
     updated_at: str | None = None     # última modificação na fonte (UTC)
     summary: str | None = None        # texto curto original (entrada da tradução)
+    # campos de evento — usados quando type in (event, seminar); viram linha
+    # na tabela events no ingest
+    starts_at: str | None = None      # data/hora local da fonte (ISO)
+    ends_at: str | None = None
+    tz: str | None = None             # ex.: Asia/Tokyo, Europe/Paris
+    city: str | None = None
+    country: str | None = None
+    instructor: str | None = None
+    online: int = 0
     extra: dict = field(default_factory=dict)

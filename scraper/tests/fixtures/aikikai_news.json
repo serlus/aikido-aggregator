@@ -1,0 +1,38 @@
+{
+ "total": 3,
+ "data": [
+  {
+   "id": "576",
+   "photos": [],
+   "news_date": "2026/07/10",
+   "news_date_short": "07/10",
+   "kind": "2",
+   "kind_str": "Publication",
+   "link_type": "detail",
+   "news_link": "",
+   "news_title": "Regarding the video of the 63rd All Japan Aikido Embukai"
+  },
+  {
+   "id": "575",
+   "photos": [],
+   "news_date": "2026/07/09",
+   "news_date_short": "07/09",
+   "kind": "1",
+   "kind_str": "Aikikai",
+   "link_type": "detail",
+   "news_link": "",
+   "news_title": "Hombu Dojo Summer Vacation"
+  },
+  {
+   "id": "574",
+   "photos": [],
+   "news_date": "2026/07/09",
+   "news_date_short": "07/09",
+   "kind": "1",
+   "kind_str": "Aikikai",
+   "link_type": "detail",
+   "news_link": "",
+   "news_title": "Aikido Hombu Dojo Midsummer Training Notice"
+  }
+ ]
+}

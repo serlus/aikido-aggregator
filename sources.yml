@@ -13,7 +13,22 @@ sources:
     lineage: aikikai
     engine: http       # /feed/ existe mas vem VAZIO; /eng/feed/ é feed de
                        # comentários; wp-json 403 (verificado 2026-07-24).
-                       # Notícias exigem parser HTML dedicado (Fase 2).
+    endpoints:         # o site renderiza notícias client-side (Vue) a partir
+                       # desta API JSON própria — parser parsers/aikikai_jp.py
+      http: https://aikikai.or.jp/js/load_information.php?lang=en&limit=20&sort=desc&kind=aikikai
+    cadence: weekly
+    priority: 1
+
+  - id: aikikai_jp_agenda
+    name: Aikikai Hombu — agenda oficial de eventos
+    url: https://www.aikikai.or.jp/eng/
+    country: JP
+    lang: [ja, en]
+    lineage: aikikai
+    engine: http
+    endpoints:         # API JSON da agenda (from_now=1 = só eventos futuros)
+                       # — parser parsers/aikikai_jp_agenda.py
+      http: https://aikikai.or.jp/js/load_events.php?lang=en&kind=ann&limit=20&sort=asc&from_now=1
     cadence: weekly
     priority: 1
 

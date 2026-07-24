@@ -1,0 +1,68 @@
+name: scrape
+
+on:
+  schedule:
+    # cadências provisórias de sources.yml — revisar quando a Fase 0 fechar
+    # (≥30 dias de probes). Horário: 10:00 UTC = 07:00 America/Sao_Paulo,
+    # 1h após o probe diário.
+    - cron: "0 10 * * 1"     # weekly — segundas
+    - cron: "0 10 1,15 * *"  # biweekly — dias 1 e 15
+    - cron: "30 10 2 * *"    # monthly — dia 2
+  workflow_dispatch:
+    inputs:
+      cadence:
+        description: "cadência a ingerir (vazio p/ usar 'source')"
+        type: choice
+        options: ["", weekly, biweekly, monthly]
+        default: weekly
+      source:
+        description: "id de uma fonte específica (ignora cadence)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Install deps
+        run: uv sync --locked
+
+      - name: Resolve cadence
+        id: args
+        run: |
+          if [ -n "${{ inputs.source }}" ]; then
+            echo "flags=--source ${{ inputs.source }}" >> "$GITHUB_OUTPUT"
+          else
+            case "${{ github.event.schedule }}" in
+              "0 10 * * 1")    cadence=weekly ;;
+              "0 10 1,15 * *") cadence=biweekly ;;
+              "30 10 2 * *")   cadence=monthly ;;
+              *)               cadence="${{ inputs.cadence }}" ;;
+            esac
+            echo "flags=--cadence $cadence" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Ingest
+        run: uv run scraper/ingest.py ${{ steps.args.outputs.flags }}
+
+      - name: Commit results
+        run: |
+          git config user.name  "scrape-bot"
+          git config user.email "scrape-bot@users.noreply.github.com"
+          git add db/aikido.db raw/
+          git diff --cached --quiet || git commit -m "scrape: $(date -u +%Y-%m-%d) ${{ steps.args.outputs.flags }}"
+          git push

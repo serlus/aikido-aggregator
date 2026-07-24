@@ -40,7 +40,14 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT / "raw"
 SOURCES_PATH = ROOT / "sources.yml"
 
-RAW_EXT = {"wp_json": "json", "rss": "xml"}
+def raw_ext(body: bytes) -> str:
+    """Extensão do raw pelo conteúdo (fontes http podem servir JSON/XML)."""
+    head = body.lstrip()[:16]
+    if head.startswith((b"{", b"[")):
+        return "json"
+    if head.startswith(b"<?xml"):
+        return "xml"
+    return "html"
 
 
 def utcnow() -> str:
@@ -111,26 +118,42 @@ def record_fetch(
     )
 
 
-def upsert_items(conn: sqlite3.Connection, source_id: str, items) -> tuple[int, int]:
+def upsert_event(conn: sqlite3.Connection, item_id: int, it, lineage: str | None) -> None:
+    conn.execute(
+        "INSERT INTO events (item_id, starts_at, ends_at, tz, city, country,"
+        " online, instructor, lineage)"
+        " VALUES (?,?,?,?,?,?,?,?,?)"
+        " ON CONFLICT(item_id) DO UPDATE SET starts_at=excluded.starts_at,"
+        " ends_at=excluded.ends_at, tz=excluded.tz, city=excluded.city,"
+        " country=excluded.country, online=excluded.online,"
+        " instructor=excluded.instructor",
+        (item_id, it.starts_at, it.ends_at, it.tz, it.city, it.country,
+         it.online, it.instructor, lineage),
+    )
+
+
+def upsert_items(conn: sqlite3.Connection, src: dict, items) -> tuple[int, int]:
     """Insere itens novos; atualiza (e invalida tradução) quando o conteúdo
-    do item mudou na fonte. Dedupe por items.url."""
+    do item mudou na fonte. Dedupe por items.url. Itens tipo event/seminar
+    ganham/atualizam linha em events."""
     new = updated = 0
     for it in items:
         chash = hashlib.sha256(
-            f"{it.title}|{it.summary or ''}".encode()
+            f"{it.title}|{it.summary or ''}|{it.starts_at or ''}|{it.city or ''}".encode()
         ).hexdigest()[:16]
         row = conn.execute(
             "SELECT id, content_hash FROM items WHERE url=?", (it.url,)
         ).fetchone()
         if row is None:
-            conn.execute(
+            cur = conn.execute(
                 "INSERT INTO items (source_id, url, external_id, type, title,"
                 " summary, lang, published_at, updated_at, discovered_at, content_hash)"
                 " VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-                (source_id, it.url, it.external_id, it.type, it.title,
+                (src["id"], it.url, it.external_id, it.type, it.title,
                  it.summary, it.lang, it.published_at, it.updated_at,
                  utcnow(), chash),
             )
+            item_id = cur.lastrowid
             new += 1
         elif row[1] != chash:
             conn.execute(
@@ -138,7 +161,12 @@ def upsert_items(conn: sqlite3.Connection, source_id: str, items) -> tuple[int, 
                 " title_pt=NULL, summary_pt=NULL WHERE id=?",  # re-traduzir na Fase 3
                 (it.title, it.summary, it.updated_at, chash, row[0]),
             )
+            item_id = row[0]
             updated += 1
+        else:
+            continue
+        if it.type in ("event", "seminar"):
+            upsert_event(conn, item_id, it, src.get("lineage"))
     return new, updated
 
 
@@ -177,8 +205,7 @@ def ingest_source(conn: sqlite3.Connection, fetcher: Fetcher, src: dict) -> str:
         record_fetch(conn, sid, endpoint, result, changed=0)
         return f"[{sid}] 200 sem mudança (hash {result.content_hash})"
 
-    ext = RAW_EXT.get(src.get("engine", ""), "html")
-    raw_path = save_raw(sid, result.content_hash, result.body, ext)
+    raw_path = save_raw(sid, result.content_hash, result.body, raw_ext(result.body))
     changed = None if prev_hash is None else 1
     record_fetch(conn, sid, endpoint, result, changed=changed, raw_path=raw_path)
 
@@ -186,7 +213,7 @@ def ingest_source(conn: sqlite3.Connection, fetcher: Fetcher, src: dict) -> str:
         items = get_parser(src).parse(result, src)
     except Exception as e:  # raw já está salvo — dá pra reprocessar offline
         return f"[{sid}] PARSE ERROR {type(e).__name__}: {e} (raw em {raw_path})"
-    new, upd = upsert_items(conn, sid, items)
+    new, upd = upsert_items(conn, src, items)
     flag = "baseline" if prev_hash is None else "CHANGED"
     return (
         f"[{sid}] 200 {flag} -> {raw_path} · "
@@ -198,6 +225,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--source", help="ingerir apenas uma fonte (id)")
+    g.add_argument("--cadence", choices=["daily", "weekly", "biweekly", "monthly"],
+                   help="ingerir as fontes desta cadência (usado pelos crons)")
     g.add_argument("--all", action="store_true", help="ingerir todas as fontes ativas")
     args = ap.parse_args()
 
@@ -207,6 +236,8 @@ def main() -> int:
         if not sources:
             print(f"fonte '{args.source}' não encontrada em sources.yml", file=sys.stderr)
             return 2
+    elif args.cadence:
+        sources = [s for s in sources if s.get("cadence") == args.cadence]
 
     conn = dbmod.connect()
     dbmod.sync_sources(conn, load_sources())
