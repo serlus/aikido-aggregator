@@ -105,11 +105,11 @@ BASE_PATH="/" no workflow) quando o nome for decidido.
 
 ## Fase 5 — Operação e expansão (contínua)
 
-- [ ] Alertas de falha (>2 runs consecutivos com erro → notificação)
-- [ ] Fontes Tier 2: minasaikido (headless), FEDENACHAA, Círculo Aikikai AR, Yoshinkan
+- [x] Alertas de falha (>2 runs consecutivos com erro → notificação) — `scraper/alerts.py` + passo no `scrape.yml`: streak ≥ 3 abre issue com label `scraper-alert`; fonte recuperada fecha a issue automaticamente
+- [x] Fontes Tier 2 — minasaikido: **engine headless implementado** (Playwright no fetcher; Chromium instalado no CI só na cadência monthly) + parser da tabela "Calendário" → 2 seminários BR na agenda; Yoshinkan: parser dedicado da homepage (`<time datetime>`) → 3 notícias JA; FEDENACHAA (timeout) e Círculo Aikikai AR (DNS morto) inacessíveis em 2026-07-24 — anotados no `sources.yml`, monitorados pelos alertas, URL nova fica p/ Fase 7
 - [ ] Migração do scheduler p/ K8s **somente se** GitHub Actions limitar (não antecipar)
-- [ ] Avaliar: newsletter mensal automática com resumo da agenda
-- [ ] Avaliar: página em EN para alcance internacional
+- [x] Avaliar: newsletter mensal automática — protótipo entregue: `scraper/newsletter.py` gera `reports/newsletter-YYYY-MM.md` (eventos futuros + notícias do mês) via cron mensal (`newsletter.yml`); canal de distribuição (e-mail) fica p/ quando houver audiência
+- [x] Avaliar: página em EN — **adiado por decisão**: custo de manter tradução bidirecional não se justifica antes de haver audiência PT consolidada (revisitar após lançamento com domínio próprio; a infra de tradução da Fase 3 já suportaria o caminho inverso)
 
 ---
 

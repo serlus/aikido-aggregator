@@ -16,6 +16,8 @@ from parsers import (  # noqa: E402
     christian_tissier_agenda,
     febrai,
     iwama_shinshin,
+    minas_aikido,
+    yoshinkan_jp,
 )
 
 FIX = Path(__file__).parent / "fixtures"
@@ -131,10 +133,36 @@ def test_febrai():
     assert items[0].url == "https://aikidofebrai.com.br/noticia/encontro-de-senseis"
 
 
+def test_yoshinkan():
+    items = yoshinkan_jp.parse(
+        fake_result(FIX / "yoshinkan_home.html", "https://www.yoshinkan.net/"),
+        {"id": "x", "url": "https://www.yoshinkan.net/"},
+    )
+    assert len(items) == 3
+    assert items[0].published_at == "2026-07-18"      # de <time datetime>
+    assert items[0].lang == "ja"
+    assert "8月休館日" in items[0].title               # prefixo de data removido
+
+
+def test_minas_calendario():
+    items = minas_aikido.parse(
+        fake_result(FIX / "minas_calendario.html", "https://www.minasaikido.com.br/"),
+        {"id": "minas_aikido", "url": "https://www.minasaikido.com.br/"},
+    )
+    assert len(items) == 2
+    a, b = items
+    assert a.starts_at == "2026-08-08"                # ano do heading "Calendário 2026"
+    assert a.city == "Ouro Preto" and a.country == "BR"
+    assert a.instructor == "Alcino Lagares"
+    assert a.type == "seminar" and a.tz == "America/Sao_Paulo"
+    assert b.starts_at == "2026-08-15" and b.city == "Ipatinga"
+    assert a.url != b.url and "#" in a.url            # url sintética estável
+
+
 TESTS = [
     test_wp_json, test_rss_japones, test_wp_json_erro_api, test_generic_html,
     test_aikikai_news, test_aikikai_agenda, test_tissier_agenda,
-    test_iwama, test_febrai,
+    test_iwama, test_febrai, test_yoshinkan, test_minas_calendario,
 ]
 
 if __name__ == "__main__":

@@ -172,15 +172,17 @@ def upsert_items(conn: sqlite3.Connection, src: dict, items) -> tuple[int, int]:
 
 def ingest_source(conn: sqlite3.Connection, fetcher: Fetcher, src: dict) -> str:
     sid = src["id"]
-    if src.get("engine") == "headless":
-        return f"[{sid}] SKIP engine=headless (Fase 5)"
+    headless = src.get("engine") == "headless"
 
     endpoint = resolve_endpoint(src)
     prev = last_fetch(conn, sid, endpoint)
     prev_hash, etag, last_modified = prev if prev else (None, None, None)
 
     try:
-        result = fetcher.fetch(endpoint, etag=etag, last_modified=last_modified)
+        result = (
+            fetcher.fetch_headless(endpoint) if headless
+            else fetcher.fetch(endpoint, etag=etag, last_modified=last_modified)
+        )
     except BlockedSourceError as e:
         record_fetch(conn, sid, endpoint, error=f"blocked: {e}")
         conn.execute("UPDATE sources SET active=0 WHERE id=?", (sid,))

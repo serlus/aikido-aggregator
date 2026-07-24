@@ -1,6 +1,6 @@
 # Makefile — atalhos do agregador. Tudo roda via uv (uv.lock é a fonte de verdade).
 
-.PHONY: sync probe report ingest test enrich site-dev site-build site-dev site-build
+.PHONY: sync probe report ingest test enrich site-dev site-build newsletter alerts
 
 sync:            ## instala deps do lockfile
 	uv sync --locked
@@ -24,11 +24,11 @@ site-dev:        ## Fase 4: dev server do site (http://localhost:4321)
 site-build:      ## Fase 4: build estático do site em site/dist
 	cd site && npm run build
 
-site-dev:        ## Fase 4: dev server do site (http://localhost:4321)
-	cd site && npm run dev
+newsletter:      ## Fase 5: gera reports/newsletter-YYYY-MM.md
+	uv run scraper/newsletter.py
 
-site-build:      ## Fase 4: build estático do site em site/dist
-	cd site && npm run build
+alerts:          ## Fase 5: lista fontes com falhas consecutivas (streak >= 3)
+	uv run scraper/alerts.py
 
 ingest:          ## Fase 1: make ingest SOURCE=daisho_criciuma (sem SOURCE = todas)
 ifdef SOURCE
