@@ -73,15 +73,16 @@ futuros JP/FR/CZ/DE/IT/BE em `events` com data, local e instrutor.
 ## Fase 3 — Tradução e enriquecimento (~1–2 fins de semana)
 
 **Entregas:**
-- [x] Pipeline de tradução de títulos/resumos (JA/FR/ES → PT) via API (Claude), com cache por hash — item traduzido uma única vez (`scraper/enricher/translate.py`; lotes com structured outputs; itens pt copiam sem API)
+- [x] Pipeline de tradução de títulos/resumos (JA/FR/ES → PT) via API, com cache por hash — item traduzido uma única vez (`scraper/enricher/translate.py`; backends Gemini via GOOGLE_API_KEY ou Claude via ANTHROPIC_API_KEY; lotes com JSON schema; itens pt copiam sem API)
 - [x] Classificação automática: `type` (news/event/seminar) por regras multilíngues e `lineage` via linhagem da fonte (`classify.py`; 36 itens reclassificados na 1ª rodada)
 - [x] Geocodificação leve de eventos (cidade → país/região) para filtro local/remoto — `geo.py` + coluna `events.region` (sul_br/brasil/america_sul/europa/japao)
 
 **Critério de saída:** feed com 100% dos títulos em PT; eventos com país
-e linhagem preenchidos em ≥ 90% dos casos. ⏳ eventos 13/13 (100%) ✅;
-títulos 58/116 (50%) — as 98 strings restantes aguardam credencial
-`ANTHROPIC_API_KEY` (local e secret do repo) p/ a 1ª rodada de tradução;
-`make enrich` fecha o critério e o cron mantém.
+e linhagem preenchidos em ≥ 90% dos casos. ✅ 2026-07-24: títulos
+116/116 (100%) e eventos 13/13 (100%); 81 strings únicas traduzidas via
+Gemini na 1ª rodada, cache permanente em `translations_cache`. Chaves
+locais em `.env` (gitignored); p/ o cron, configurar o secret
+`GOOGLE_API_KEY` no repositório.
 
 ---
 

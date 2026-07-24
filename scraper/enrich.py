@@ -18,8 +18,6 @@ from __future__ import annotations
 import argparse
 import sys
 
-import anthropic
-
 import db as dbmod
 from enricher import classify, geo, translate
 
@@ -59,11 +57,8 @@ def main() -> int:
         print(f"[translate] {t['items']} itens pendentes · {t['copied']} copiados (pt) · "
               f"{t['cache_hits']} do cache · {t['api']} strings via API"
               + (f" · {t['skipped_api']} aguardando API" if t.get("skipped_api") else ""))
-    except (anthropic.AuthenticationError, TypeError):
-        # TypeError: o SDK não resolveu nenhuma credencial do ambiente
-        print("[translate] ERRO: sem credenciais da API Anthropic. "
-              "Configure ANTHROPIC_API_KEY (local: export; CI: secret do repo). "
-              "classify/geo e cópias pt->pt já foram aplicados.",
+    except translate.TranslationError as e:
+        print(f"[translate] ERRO: {e} — classify/geo e cópias pt já foram aplicados.",
               file=sys.stderr)
         conn.close()
         return 1
