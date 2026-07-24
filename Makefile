@@ -1,6 +1,6 @@
 # Makefile — atalhos do agregador. Tudo roda via uv (uv.lock é a fonte de verdade).
 
-.PHONY: sync probe report ingest test enrich site-dev site-build
+.PHONY: sync probe report ingest test enrich site-dev site-build site-dev site-build
 
 sync:            ## instala deps do lockfile
 	uv sync --locked
@@ -17,6 +17,12 @@ test:            ## testes offline (fixtures, sem rede)
 
 enrich:          ## Fase 3: classifica, geocodifica e traduz pendências
 	uv run scraper/enrich.py
+
+site-dev:        ## Fase 4: dev server do site (http://localhost:4321)
+	cd site && npm run dev
+
+site-build:      ## Fase 4: build estático do site em site/dist
+	cd site && npm run build
 
 site-dev:        ## Fase 4: dev server do site (http://localhost:4321)
 	cd site && npm run dev

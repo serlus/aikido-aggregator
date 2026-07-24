@@ -97,9 +97,8 @@ locais em `.env` (gitignored); p/ o cron, configurar o secret
 - [x] Deploy: GitHub Pages (custo zero) — `make site-dev` / `make site-build` p/ local
 
 **Critério de saída:** site no ar com domínio próprio, atualizando sozinho.
-⏳ código pronto e buildando (5 páginas, testado com e sem BASE_PATH);
-falta: (1) merge p/ main, (2) habilitar Pages no repo (Settings → Pages →
-Source: GitHub Actions), (3) apontar domínio próprio (CNAME + SITE_URL/
+⏳ código na main; falta: (1) habilitar Pages no repo (Settings → Pages →
+Source: GitHub Actions), (2) apontar domínio próprio (CNAME + SITE_URL/
 BASE_PATH="/" no workflow) quando o nome for decidido.
 
 ---
@@ -114,6 +113,49 @@ BASE_PATH="/" no workflow) quando o nome for decidido.
 
 ---
 
+## Fase 6 — Front v2: refinamento visual (~2 fins de semana)
+
+**Objetivo:** elevar o acabamento do site v1 mantendo o design system como base.
+
+**Entregas:**
+- [ ] Responsividade refinada mobile/desktop: navegação mobile (menu compacto), grids e tipografia fluida, filtros da agenda confortáveis no toque, tabela de status utilizável em tela pequena
+- [ ] Imagens de fundo e texturas nas seções (hero e aberturas) — otimizadas (AVIF/WebP), sem custo de CDN, sem ferir o Lighthouse
+- [ ] Elementos dinâmicos: micro-interações do design system (lift, nudge, reveal) revisadas + avaliar o hero 3D (torus/partículas douradas do `design-system.html`) com fallback estático
+- [ ] Limpeza de informações internas do projeto no site público: **nenhuma menção a "fases"/roadmap** nas páginas (ex.: `/status` hoje cita "Fase 5") — esse vocabulário fica restrito ao repositório
+
+**Critério de saída:** Lighthouse mobile ≥ 90 nas 5 páginas; zero menções a
+fases/roadmap no HTML publicado; navegação completa confortável em 375px.
+
+---
+
+## Fase 7 — Expansão de fontes (~2–3 fins de semana, contínua depois)
+
+**Objetivo:** ampliar a cobertura além das 19 fontes atuais sem degradar a qualidade.
+
+**Entregas:**
+- [ ] Levantamento de candidatas: federações estaduais BR restantes, Europa (Espanha, Portugal, Itália, Alemanha), EUA/Canadá, diretórios e calendários agregadores existentes
+- [ ] Esteira de triagem por candidata: robots.txt → probe/discover (wp-json/rss) → cadência → parser (genérico quando possível, dedicado quando valer)
+- [ ] Registro no `sources.yml` com tier e prioridade; blocklist quando necessário
+
+**Critério de saída:** ≥ 10 novas fontes ativas ingerindo em produção,
+nenhuma com fail streak crônico (≥3) após 2 semanas.
+
+---
+
+## Fase 8 — Comunidade: correções e submissões (~2 fins de semana)
+
+**Objetivo:** abrir canal com os praticantes sem perder a curadoria.
+
+**Entregas:**
+- [ ] Contato para informações incorretas: e-mail dedicado + link "reportar erro" em itens da agenda, notícias e cards do diretório (assunto pré-preenchido com o identificador do item)
+- [ ] Formulário de submissão de **evento** ou **novo dojo** (serviço estático compatível com Pages, ex.: Formspree/Tally/Google Forms) com campos alinhados ao schema (`events`/`orgs`)
+- [ ] Fluxo de moderação documentado: fila → revisão manual → incorporação no `seed.sql`/`events` (submissão nunca publica direto — cf. ARCHITECTURE §8 "submissão moderada")
+
+**Critério de saída:** canais publicados no site; 1 submissão de teste
+percorrendo o fluxo fim-a-fim (envio → moderação → publicado no site).
+
+---
+
 ## Resumo visual
 
 ```
@@ -123,4 +165,7 @@ Fase 2 (scrapers T1)           ┗━━━━━━━━━━━┓        �
 Fase 3 (tradução)                          ┗━━━━┓   ┃
 Fase 4 (site v1)                                ┗━━━┻━━━━━▶ lançamento
 Fase 5 (operação)                                          ━━━━━▶ contínua
+Fase 6 (front v2)                                          ━━━┓
+Fase 7 (expansão de fontes)                                   ┣━━━▶ crescimento
+Fase 8 (comunidade)                                        ━━━┛
 ```
