@@ -4,13 +4,22 @@
 Uso:  make test   (ou  uv run scraper/tests/test_parsers.py)
 """
 import sys
+from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from parsers import generic, rss, wp_json  # noqa: E402
+from parsers import (  # noqa: E402
+    aikikai_jp,
+    aikikai_jp_agenda,
+    christian_tissier_agenda,
+    febrai,
+    iwama_shinshin,
+)
 
 FIX = Path(__file__).parent / "fixtures"
+TODAY = date(2026, 7, 24)   # data congelada — mesma dos fixtures
 
 
 def fake_result(path: Path, url: str = "https://exemplo.com.br/") -> SimpleNamespace:
@@ -55,6 +64,80 @@ def test_generic_html():
     assert items[0].type == "page"
 
 
+def test_aikikai_news():
+    items = aikikai_jp.parse(fake_result(FIX / "aikikai_news.json"), {"id": "aikikai_jp"})
+    assert len(items) == 3
+    a = items[0]
+    assert a.title == "Regarding the video of the 63rd All Japan Aikido Embukai"
+    assert a.url == "https://aikikai.or.jp/eng/news/detail/?news_id=576"
+    assert a.published_at == "2026-07-10"
+    assert a.type == "news"
+
+
+def test_aikikai_agenda():
+    items = aikikai_jp_agenda.parse(fake_result(FIX / "aikikai_events.json"), {"id": "x"})
+    assert len(items) == 4
+    memorial = next(i for i in items if "Memorial" in i.title)
+    assert memorial.starts_at == "2026-10-17"        # "2026/10/17-2026/10/18"
+    assert memorial.ends_at == "2026-10-18"
+    assert memorial.city == "Tanabe City"
+    assert memorial.country == "JP" and memorial.tz == "Asia/Tokyo"
+    assert memorial.type == "event"
+    single = next(i for i in items if i.external_id == "143")
+    assert single.starts_at == single.ends_at == "2026-08-07"
+
+
+def test_tissier_agenda():
+    items = christian_tissier_agenda.parse(
+        fake_result(FIX / "tissier_agenda.html", "https://christiantissier.com/"),
+        {"id": "x"}, today=TODAY,
+    )
+    by_city = {i.city: i for i in items}
+    assert len(items) == 9                            # dedupe desktop/mobile
+    ostrava = by_city["Ostrava"]
+    assert ostrava.starts_at == "2026-06-27" and ostrava.ends_at == "2026-06-28"
+    assert ostrava.country == "CZ"
+    assert ostrava.instructor == "Christian Tissier, Takeshi Kanazawa"
+    assert by_city["Fareins"].starts_at == "2026-09-26"       # ano explícito
+    assert by_city["Fareins"].instructor == "Doshu Moriteru UESHIBA"
+    assert by_city["Berlin"].country == "DE"
+    ete = by_city["Roquebrune-sur-Argens"]
+    assert ete.starts_at == "2026-07-25" and ete.ends_at == "2026-08-01"  # cruza mês
+    assert by_city["Paris"].city == "Paris"           # "Stage de Ligue" é título
+    assert by_city["Louvain la Neuve"].country == "BE"  # <a> com 2 stages, split
+    assert all(i.type == "seminar" for i in items)
+    assert len({i.url for i in items}) == 9           # urls únicas p/ dedupe
+
+
+def test_iwama():
+    items = iwama_shinshin.parse(
+        fake_result(FIX / "iwama_home.html", "https://iwamashinshinaikido.com/"),
+        {"id": "x", "url": "https://iwamashinshinaikido.com/"},
+    )
+    assert len(items) == 4
+    assert items[0].title == "New Year's Greeting (2026)"
+    assert items[0].published_at == "2026-01-18"      # data extraída da URL
+    assert items[0].lang == "en"
+
+
+def test_febrai():
+    items = febrai.parse(
+        fake_result(FIX / "febrai_home.html", "https://aikidofebrai.com.br/"),
+        {"id": "x", "url": "https://aikidofebrai.com.br/"},
+    )
+    assert len(items) == 4
+    assert items[0].title == "Encontro de Senseis"
+    assert items[0].published_at == "2026-06-20"      # "20/06/2026Título"
+    assert items[0].url == "https://aikidofebrai.com.br/noticia/encontro-de-senseis"
+
+
+TESTS = [
+    test_wp_json, test_rss_japones, test_wp_json_erro_api, test_generic_html,
+    test_aikikai_news, test_aikikai_agenda, test_tissier_agenda,
+    test_iwama, test_febrai,
+]
+
 if __name__ == "__main__":
-    test_wp_json(); test_rss_japones(); test_wp_json_erro_api(); test_generic_html()
-    print("4 testes OK")
+    for t in TESTS:
+        t()
+    print(f"{len(TESTS)} testes OK")
