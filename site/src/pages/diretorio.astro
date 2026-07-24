@@ -2,7 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Icon from '../components/Icon.astro';
+import { Picture } from 'astro:assets';
 import { directory, COUNTRY_NAMES } from '../lib/db.js';
+import osensei from '../assets/img/osensei-1939.jpg';
 
 const { roots, byId } = directory();
 
@@ -20,7 +22,7 @@ const KIND = {
   hombu: ['Hombu', 'bg-purple-50 text-purple-600 border-purple-100'],
   federation: ['Federação', 'bg-blue-50 text-blue-600 border-blue-100'],
   confederation: ['Confederação', 'bg-blue-50 text-blue-600 border-blue-100'],
-  institute: ['Instituto', 'bg-emerald-50 text-emerald-600 border-emerald-100'],
+  institute: ['Instituto', 'bg-emerald-50 text-emerald-700 border-emerald-100'],
   dojo: ['Dojo', 'bg-neutral-100 text-neutral-600 border-neutral-200'],
   dojo_hq: ['Dojo sede', 'bg-neutral-100 text-neutral-600 border-neutral-200'],
 };
@@ -29,11 +31,31 @@ const KIND = {
   <section class="w-full bg-white py-24 px-6 md:px-12">
     <div class="max-w-7xl mx-auto">
       <Eyebrow label="Diretório — linhagens e organizações" />
-      <h1 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-4 leading-[0.9]">Diretório</h1>
-      <p class="text-lg text-neutral-500 font-mono max-w-2xl mb-16">
-        A genealogia técnica do aikido — do Fundador às federações e dojos de hoje —
-        mapeada a partir da pesquisa do projeto.
-      </p>
+      <div class="grid grid-cols-[1fr_auto] gap-6 md:gap-12 items-end mb-16">
+        <div>
+          <h1 class="text-4xl md:text-6xl font-semibold tracking-tighter text-neutral-900 mb-4 leading-[0.9]">Diretório</h1>
+          <p class="text-base sm:text-lg text-neutral-500 font-mono max-w-2xl">
+            A genealogia técnica do aikido — do Fundador às federações e dojos de hoje —
+            mapeada a partir da pesquisa do projeto.
+          </p>
+        </div>
+        <figure class="group w-24 sm:w-32 md:w-44">
+          <div class="rounded-2xl overflow-hidden border border-neutral-200">
+            <Picture
+              src={osensei}
+              formats={['avif', 'webp']}
+              widths={[176, 352]}
+              sizes="(min-width: 768px) 176px, 128px"
+              quality={70}
+              alt="Morihei Ueshiba, fundador do aikido, em retrato de 1939"
+              class="w-full h-auto"
+            />
+          </div>
+          <figcaption class="text-[10px] text-neutral-400 font-mono mt-2 leading-snug">
+            Morihei Ueshiba, o Fundador — 1939
+          </figcaption>
+        </figure>
+      </div>
 
       {ordered.map((l) => (
         <div class={`mb-14 ${l.depth > 0 ? 'md:ml-10 md:pl-8 md:border-l md:border-neutral-200' : ''}`}>
