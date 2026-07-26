@@ -1,29 +1,29 @@
 # Relatório de frequência de atualização
 
-_Gerado em 2026-07-25 10:32 UTC · fonte: db/probes.sqlite_
+_Gerado em 2026-07-26 10:48 UTC · fonte: db/probes.sqlite_
 
 | Fonte | País | Probes | Mudanças | Erros | Última mudança | Intervalo médio | Cadência recomendada |
 |---|---|---|---|---|---|---|---|
-| ACAI — Associação Catarinense de Aikidō | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Aikido Paraná Brasil | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| ABAI — Federação Baiana de Aikido | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Aikikai Foundation (Hombu Dojo) | JP | 3 | 0 | 1 | — | — | **aguardando dados (≥7 dias)** |
-| Aikikai Hombu — agenda oficial de eventos | JP | 2 | 0 | 1 | — | — | **aguardando dados (≥7 dias)** |
-| Dojô Ame no Iwaya (Viamão/RS) | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Cercle Christian Tissier (Vincennes) | FR | 4 | 0 | 1 | — | — | **aguardando dados (≥7 dias)** |
-| Christian Tissier — site oficial (agenda de estágios) | FR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Círculo Aikikai (Argentina) | AR | 3 | 0 | 3 | — | — | **aguardando dados (≥7 dias)** |
-| Daishō Aikido Dojo (Criciúma/SC) | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| FEBRAI — Federação Brasileira de Aikido | BR | 3 | 2 | 0 | 2026-07-25T10:30:58+00:00 | 0.7d | **aguardando dados (≥7 dias)** |
-| FEDENACHAA (Chile) | CL | 3 | 0 | 3 | — | — | **aguardando dados (≥7 dias)** |
-| FEPAI-Brasil — Federação Paulista de Aikido | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| FFAAA — Fédération Française d'Aïkido, Aïkibudo et Affinitaires | FR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| ICA — Instituto Catarinense de Aikido | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Iwama Shinshin Aikishuren Kai | JP | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Federação Mineira de Aikido | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Shoyukan Aikikai Brasil | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Instituto Takemussu / Confederação Brasileira de Aikido - Brazil Aikikai | BR | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
-| Yoshinkan Aikido Honbu | JP | 3 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| ACAI — Associação Catarinense de Aikidō | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Aikido Paraná Brasil | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| ABAI — Federação Baiana de Aikido | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Aikikai Foundation (Hombu Dojo) | JP | 4 | 0 | 1 | — | — | **aguardando dados (≥7 dias)** |
+| Aikikai Hombu — agenda oficial de eventos | JP | 3 | 0 | 1 | — | — | **aguardando dados (≥7 dias)** |
+| Dojô Ame no Iwaya (Viamão/RS) | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Cercle Christian Tissier (Vincennes) | FR | 5 | 1 | 1 | 2026-07-26T10:46:28+00:00 | 2.4d | **aguardando dados (≥7 dias)** |
+| Christian Tissier — site oficial (agenda de estágios) | FR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Círculo Aikikai (Argentina) | AR | 4 | 0 | 4 | — | — | **aguardando dados (≥7 dias)** |
+| Daishō Aikido Dojo (Criciúma/SC) | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| FEBRAI — Federação Brasileira de Aikido | BR | 4 | 3 | 0 | 2026-07-26T10:46:54+00:00 | 0.8d | **aguardando dados (≥7 dias)** |
+| FEDENACHAA (Chile) | CL | 4 | 0 | 4 | — | — | **aguardando dados (≥7 dias)** |
+| FEPAI-Brasil — Federação Paulista de Aikido | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| FFAAA — Fédération Française d'Aïkido, Aïkibudo et Affinitaires | FR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| ICA — Instituto Catarinense de Aikido | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Iwama Shinshin Aikishuren Kai | JP | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Federação Mineira de Aikido | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Shoyukan Aikikai Brasil | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Instituto Takemussu / Confederação Brasileira de Aikido - Brazil Aikikai | BR | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
+| Yoshinkan Aikido Honbu | JP | 4 | 0 | 0 | — | — | **aguardando dados (≥7 dias)** |
 
 ## Endpoints estruturados descobertos (usar em vez de scraping!)
 
