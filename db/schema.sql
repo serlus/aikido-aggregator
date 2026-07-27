@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS orgs (           -- diretório: federações e dojos
   parent_id TEXT REFERENCES orgs(id),
   url       TEXT,
   contact   TEXT,
+  instagram TEXT,                           -- handle (sem @) — só link, nunca coleta
   notes     TEXT
 );
 

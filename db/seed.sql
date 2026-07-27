@@ -58,3 +58,17 @@ INSERT OR IGNORE INTO orgs (id, name, kind, country, state, city, lineage, paren
   ('circulo_aikikai', 'Círculo Aikikai (Argentina)', 'federation', 'AR', NULL, 'Córdoba',      'tissier_ffaaa', NULL, 'https://www.circuloaikikai.com.ar/', 'Diretor Luis Colalillo; subordinado internacionalmente a Tissier; dojos em Córdoba, Santa Fe, Mendoza, Buenos Aires'),
   ('aaa_argentina',   'Aikido Aikikai Argentina',    'federation', 'AR', NULL, 'Buenos Aires', 'tissier_ffaaa', NULL, NULL,                                 'Orientação de Tissier; reconhecida pelo Hombu desde 2022'),
   ('fedenachaa',      'FEDENACHAA (Chile)',          'federation', 'CL', NULL, 'Santiago',     'tissier_ffaaa', NULL, 'https://www.fedenachaa.cl/',         'Vinculada ao Cercle Tissier e à IAF');
+
+-- ══════════ ORGS NOVAS + INSTAGRAM (2026-07-27 — perfis indicados pelo mantenedor) ══════════
+-- instagram = handle sem @; usado APENAS como link no diretório (nunca coleta —
+-- robots/ToS do Instagram proíbem acesso automatizado; cf. FASES Fase 8).
+INSERT OR IGNORE INTO orgs (id, name, kind, country, state, city, lineage, parent_id, url, instagram, notes) VALUES
+  ('fechiai',            'FECHIAI — Federación Chilena de Aikido',      'federation', 'CL', NULL, 'Santiago',        'aikikai',       NULL,             'https://fechiai.cl/',                'federacionchilenadeaikido', 'Desde 2002; rede de dojos e seminários; distinta da FEDENACHAA'),
+  ('minami_no_tani',     'Minami no Tani Dojo',                         'dojo',       'BR', 'SC', 'Jaraguá do Sul',  'aikikai',       'tachibana',      NULL,                                 'minami_no_tani_dojo',       'Dojo de aikido de Jaraguá do Sul, ligado ao Instituto Tachibana'),
+  ('okinaie',            'Õkinaie Dojo',                                'dojo',       'BR', 'SC', 'Criciúma',        NULL,            NULL,             'https://okinaie.com.br/',            'okinaie.artesmarciais',     'Desde 2015; aikido e defesa pessoal; método próprio de ensino'),
+  ('aikido_caxias',      'Aikido Caxias do Sul',                        'dojo',       'BR', 'RS', 'Caxias do Sul',   NULL,            NULL,             NULL,                                 'aikidocaxiasdosul',         'Identificado via Instagram; linhagem e instrutor a confirmar'),
+  ('canal_aikido_br',    'Canal Aikido Brasil',                         'media',      'BR', NULL, NULL,              NULL,            NULL,             'https://www.youtube.com/c/AikidoBrasil', 'canal.aikidobrasil',    'Ricardo Miyajima; pesquisa sobre técnica, história e formação no aikido'),
+  ('bruno_gonzalez',     'Bruno Gonzalez Sensei (6º Dan)',              'instructor', 'FR', NULL, 'Paris',           'tissier_ffaaa', 'cercle_tissier', 'https://aikido-brunogonzalez.com/',  'gonzalez_bruno_aikido_official', 'Instrutor do Cercle Tissier, formado por Christian Tissier');
+
+UPDATE orgs SET instagram = 'aikido_ffaaa'    WHERE id = 'ffaaa'    AND instagram IS NULL;
+UPDATE orgs SET instagram = 'aikidokas.brasil' WHERE id = 'ica'     AND instagram IS NULL;

@@ -234,6 +234,17 @@ sources:
     cadence: monthly
     priority: 3
 
+  - id: fechiai_cl
+    name: FECHIAI — Federación Chilena de Aikido
+    url: https://fechiai.cl/
+    country: CL
+    lang: [es]
+    lineage: aikikai
+    engine: headless   # SPA (shell JS sem feed/wp-json) — mesmo caso da
+                       # minas_aikido; indicada pelo mantenedor em 2026-07-27
+    cadence: monthly
+    priority: 3
+
   # circulo_aikikai_ar removido em 2026-07-27 (Fase 7): DNS morto desde
   # 2026-07-24, sem URL nova encontrada. Cobertura AR substituída pelas
   # 4 fontes abaixo (triagem Fase 7).
