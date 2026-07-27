@@ -34,6 +34,9 @@ def _migrate(conn: sqlite3.Connection) -> None:
     cols = {r[1] for r in conn.execute("PRAGMA table_info(events)")}
     if "region" not in cols:
         conn.execute("ALTER TABLE events ADD COLUMN region TEXT")
+    org_cols = {r[1] for r in conn.execute("PRAGMA table_info(orgs)")}
+    if "instagram" not in org_cols:
+        conn.execute("ALTER TABLE orgs ADD COLUMN instagram TEXT")
 
 
 def sync_sources(conn: sqlite3.Connection, sources: list[dict]) -> None:
