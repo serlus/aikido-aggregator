@@ -6,6 +6,7 @@ da stdlib — sem dependência extra.
 """
 from __future__ import annotations
 
+import html
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -20,7 +21,9 @@ _TAG_RE = re.compile(r"<[^>]+>")
 def _text(el: ET.Element | None) -> str | None:
     if el is None or el.text is None:
         return None
-    return re.sub(r"\s+", " ", _TAG_RE.sub(" ", el.text)).strip() or None
+    # unescape 2x: feeds Wix/WP entregam entidades duplamente escapadas (&amp;#38;)
+    cleaned = html.unescape(html.unescape(_TAG_RE.sub(" ", el.text)))
+    return re.sub(r"\s+", " ", cleaned).strip() or None
 
 
 def _to_utc_iso(value: str | None) -> str | None:
