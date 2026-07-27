@@ -151,9 +151,14 @@ nenhuma com fail streak crônico (≥3) após 2 semanas.
 - [ ] Contato para informações incorretas: e-mail dedicado + link "reportar erro" em itens da agenda, notícias e cards do diretório (assunto pré-preenchido com o identificador do item)
 - [ ] Formulário de submissão de **evento** ou **novo dojo** (serviço estático compatível com Pages, ex.: Formspree/Tally/Google Forms) com campos alinhados ao schema (`events`/`orgs`)
 - [ ] Fluxo de moderação documentado: fila → revisão manual → incorporação no `seed.sql`/`events` (submissão nunca publica direto — cf. ARCHITECTURE §8 "submissão moderada")
+- [ ] **Segurança do conteúdo submetido** (requisito, 2026-07-27):
+  - *SQL injection*: nenhuma submissão entra no banco por concatenação de SQL — sempre queries parametrizadas na incorporação (`?` no sqlite3/better-sqlite3); o `seed.sql` gerado a partir de submissões usa escaping automatizado, nunca copy-paste manual de texto do usuário
+  - *Prompt injection*: texto de submissão é conteúdo não confiável — se passar pela esteira de enriquecimento (tradução/classificação via Gemini, Fase 3), vai delimitado como dado (não como instrução), com instrução explícita ao modelo para ignorar comandos embutidos, e a saída é validada (schema/campos esperados) antes de entrar no banco; nada de submissão vai a prompt de agente com ferramentas
 
 **Critério de saída:** canais publicados no site; 1 submissão de teste
-percorrendo o fluxo fim-a-fim (envio → moderação → publicado no site).
+percorrendo o fluxo fim-a-fim (envio → moderação → publicado no site),
+incluindo 1 submissão maliciosa de teste (SQL + instrução embutida)
+neutralizada pela esteira.
 
 ---
 
