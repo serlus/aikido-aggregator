@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!--
+This code is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+any later version.
+-->
+  <head>
+    <title>
+      Deutscher Aikido-Bund 
+    </title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="language" content="de" />
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="title" content="Deutscher Aikido-Bund " />
+    <meta name="abstract" content="Deutscher Aikido-Bund" />
+    <meta name="author" content="Gisbert Burckardt Webdesign Hamburg" />
+    <meta name="copyright" content="Gisbert Burckardt,Hamburg" />
+    <meta name="host" content="https://www.deutscher-aikido-bund.de/" />
+    <meta name="host-admin" content="webmaster@deutscher-aikido-bund.de" />
+    <link rel="stylesheet" type="text/css" href="/standard.css" media="screen" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html" />
+    <script type="text/javascript" src="/javascript/basis.js"></script>
+  </head>
+  <body class="main">
+  <div class="page">
+    <div id="screenheadmenu_top">
+        <nav id="headmenu_top">
+          <ul class="level3">
+            <li><a href="/kontakt/">Kontakt</a></li>
+            <li><a href="/downloads/">Downloads</a></li>
+            <li><a href="/tk/">TK</a></li>
+            <li><a href="/datenschutz/">Datenschutz</a></li>
+            <li><a href="/impressum/">Impressum</a></li>
+          </ul> <!-- Ende Level 3 -->
+        </nav> <!-- End of headmenu_top -->
+ 
+        <div id="quicksearch_container">
+          <form accept-charset="utf-8" id="quicksearchform" name="searchform" action="/suchen/" method="post" role="search">
+            <input type="hidden" class="search_hidden" value="" name="searchfield">
+            <input type="search" class="search_text" name="searchfield" placeholder="Suchen" title="Durchsuche die Aikido-Bund-Seiten [f]" accesskey="f" id="searchInput">
+            <button type="submit"  title="Suche nach Seiten, die diesen Text enthalten" name="search_submit">
+              <svg class="search_icon"><use href="/icons/gb_common_icons.svg#search" /></svg>
+            </button>
+            <input type="hidden" class="search_hidden" value="search" name="rm">
+          </form>
+        </div>
+    </div>
+    <div id="screenheader">
+
+        <div id="header_view">
+          <div id="header_view_left">
+            <a href="https://www.aikido-bund.de/">
+              <img id="logo_dab" src="/images/dab_logo.svg" alt="Deutscher Aikido-Bund" title="Deutscher Aikido-Bund" />
+            </a>
+            <a href="https://www.aikido-bund.de/">
+              <h1>DEUTSCHER AIKIDO-BUND e.V.</h1>
+            </a>
+            <h3>einziger vom Deutschen Olympischen Sportbund (DOSB) anerkannte Fachverband für Aikido</h3>
+          </div>
+          <div id="header_view_right">
+            <img id="logo_aikido" src="/images/aikido_logo.svg" alt="Deutscher Aikido-Bund" title="Deutscher Aikido-Bund" />
+          </div>
+        </div>
+    </div>
+    <div id="screenheadmenu">
+        <nav id="headmenu1">
+          <ul class="level3">
+            <li><a href="/landesverbaende/">Landesverbände</a></li>
+            <li><a href="/vereine/">Vereine</a></li>
+            <li><a href="/lehrgaenge/">Lehrgänge</a></li>
+            <li><a href="http://www.aikido-jugend.de/">Jugendseiten</a></li>
+            <li><a href="/shop/">Shop</a></li>
+            <li><a href="/aikido-aktuell/">aikido-aktuell</a></li>
+            <li><a href="/presse/">Presse</a></li>
+            <li><a href="/links/">Links</a></li>
+            <li><a href="/etiketten/">Etiketten</a></li>
+            <li><a href="https://aikido-jugend.de/praevention.php/">Prävention</a></li>
+            <li><a href="https://moodle.aikido-bund.de/">Kursräume</a></li>
+          </ul> <!-- Ende Level 3 -->
+        </nav> <!-- End of headmenu1 -->
+        <nav id="headmenu2">
+          <ul class="level3">
+            <li><a href="/">Startseite</a></li>
+            <li><a href="/was_ist_aikido/">Was ist Aikido?</a></li>
+            <li><a href="/ueber_uns/">Über uns</a></li>
+            <li><a href="/lehrwesen/">Lehrwesen</a></li>
+            <li><a href="/pruefungswesen/">Prüfungswesen</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/medien/">Medien</a></li>
+            <li><a href="/techniken/">Techniken</a></li>
+            <li><a href="/kata/">Kata</a></li>
+            <li><a href="/katawettbewerb/">Katawettbewerb 2025</a></li>
+          </ul> <!-- Ende Level 3 -->
+        </nav> <!-- End of headmenu2 -->
+    </div>
+    <div id="screenmain">
+      <div id="screenmainmiddle">
+        <form name="baseform" action="/aktuelles/" method="post">
+        <div>
+          <input type="hidden" name="structures_id" value="11" />
+          <input type="hidden" name="_method" value="" />
+          <input type="hidden" name="id" value="" />
+        <div class="contentclass">
+              <div class="entryclass">
+
+          <div class="article_service-group">
+            <a href="/printversion?id=292" class="article_service_link" title="Druckansicht">
+              <svg class="standard_icon">
+                <use href="/icons/gb_common_icons.svg#print"><title>Druckansicht</title></use>
+              </svg>
+            </a>
+            <a href="/pdfversion?id=292" class="article_service_link" title="PDF-Ausgabe">
+              <svg class="standard_icon">
+                <use href="/icons/gb_common_icons.svg#pdf"><title>PDF-Ausgabe</title></use>
+              </svg>
+            </a>
+          </div>
+          <div class="blog_flex-container">
+            <div id="blog_left_content">
+            <div class="titleclass">BWL II auf dem  Herzogenhorn  mit Alfred Heymann</div>
+           <div class="textclass">
+<p>
+	Eine Woche Aikido auf dem &bdquo;Horn&ldquo;: Ohne den Bundeswochenlehrgang dort ist der Sommerurlaub kein Sommerurlaub. &Auml;hnlich haben wohl die drei&szlig;ig Aikidoka vom Blaugurt bis zum 7. Dan aus ganz Deutschland gedacht. Von Schwerte bis Berlin, von Rendsburg bis M&uuml;nchen waren wir angereist, um bei Alfred zu trainieren.<br />
+	Alle waren entspannt und gut drauf, da &ndash;das gab es noch nie &ndash; niemand Pr&uuml;fung machen wollte. So konnten wir ungeniert trainieren, was wir wollten bzw. was Alfred vorgab. Alfred hatte sich denn auch als besonderes Schmankerl die vierte Kata vorgenommen. Als Start war das prima, um sich zu akklimatisieren.<br />
+	Insgesamt vier Trainingseinheiten &uuml;bten wir den Ablauf und den korrekten Umgang mit den drei in der Kata ben&ouml;tigten Waffen: Stab, Schwert und Messer. Der Grundablauf sitzt, sodass wir mit Hilfe der DVD des AVNI zu Hause weiter&uuml;ben k&ouml;nnen.<br />
+	Zus&auml;tzlich &bdquo;diskutierten&ldquo; wir u.&nbsp;a. ganz praktisch die Techniken, die zur Erweiterung des Pr&uuml;fungsprogramms dienen sollen: Ude-garami, Ude-kime-osae und Ude-kime-nage. Die Idee, diese Techniken ohne Waffen in den Bereich der Braun- und Schwarzgurtpr&uuml;fungen &bdquo;vorzuziehen&ldquo;, hat ihren Reiz. Auf den dritten Dan sind sie mit dem Messer zu zeigen, warum nicht also sie schon vorher intensiv &uuml;ben. &Uuml;ben sollte man sowieso stets die ganze Palette. Nur das Pr&uuml;fungsprogramm zu trainieren, bedeutet Schmalspur.<br />
+	Als grunds&auml;tzliches Element brachte Alfred bei allen Techniken regelm&auml;&szlig;ig den korrekten Gebrauch der Tegatana ins Spiel. Mit dem bei uns immer wieder einsetzenden Greifreflex schneidet man sich eben ins eigene Fleisch, da die Fixierung Nage unbeweglich, sprich unflexibel macht<br />
+	<br />
+	<img src="/images/bilder/aktuelles/2010-dab-bwl2-hzh.jpg" / /><br />
+	<br />
+	und Uke sich ganz anders anspannt, als wenn Nage mit Tegatana und Ki f&uuml;hrt. Die Techniken werden so ungemein viel effizienter.<br />
+	Das Rahmenprogramm war das &uuml;bliche, dennoch kann man davon nie genug bekommen: Sch&ouml;nes Wetter mit Sonnenbaden, wieder die unglaublich freundliche Aufnahme durch Ute, ein wunderbarer Sternenhimmel, leckeres Bier und gef&auml;hrlicher Wein, Spiele, gute Gespr&auml;che mit alten und neuen Bekannten; all das, was man sich w&uuml;nscht. Ich habe mal nachgez&auml;hlt, wie oft ich schon auf dem Horn war. Insgesamt war es schon ein Vierteljahr. Das Jahr will ich mindestens noch vollmachen.&nbsp;<br />
+	<br />
+	<em>Frauke Drewitz,<br />
+	Uni-Dojo Zanshin L&uuml;beck e.&nbsp;V.</em></p>
+           </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div id="screenfooter">
+Stand: 07/2026 Copyright &copy; 2000-2026 <a href="mailto:webmaster@aikido-bund.de">Gisbert Burckardt Webdesign</a>
+    </div>
+  </div> <!-- End of page -->
+  </body>
+</html>

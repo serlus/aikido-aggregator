@@ -134,12 +134,14 @@ zero menções a fases/roadmap; navegação completa confortável em 375px.
 **Objetivo:** ampliar a cobertura além das 19 fontes atuais sem degradar a qualidade.
 
 **Entregas:**
-- [ ] Levantamento de candidatas: federações estaduais BR restantes, Europa (Espanha, Portugal, Itália, Alemanha), EUA/Canadá, diretórios e calendários agregadores existentes
-- [ ] Esteira de triagem por candidata: robots.txt → probe/discover (wp-json/rss) → cadência → parser (genérico quando possível, dedicado quando valer)
-- [ ] Registro no `sources.yml` com tier e prioridade; blocklist quando necessário
+- [x] Levantamento de candidatas (2026-07-27): ~25 sites triados — BR (RS/RJ), Argentina (4), EUA (3), Canadá, Alemanha, Portugal, Espanha, Itália e mídia especializada
+- [x] Esteira de triagem por candidata: robots.txt (parse real por UA) → status/plataforma → wp-json com datas → feed declarado no HTML → cadência pela data do último post
+- [x] Registro no `sources.yml`: **14 novas fontes** ingerindo (todas com probe 200 + ingest validado local): `fed_aikikai_ar` (seminários 2026!), `aikikai_com_ar`, `asa_ar`, `oaa_ar`, `usaf_us` (blog ativo), `birankai_us`, `aaa_us`, `caf_ca`, `dab_de`, `fpaikido_pt`, `aikido_journal` (robots allow-all), `guillaume_erard`, `insbrai_rs` (Porto Alegre — região-alvo), `aikido_rj` (Shikanai/kumano_anno)
+- [x] Descartes documentados: `aikikai.it` (bot-wall Aruba, 403 mesmo headless), `aikikai.de` (site "em construção"), `spainaikikai.org`/FNAAE-ES (403 na home + conteúdo parado 2021), `aikiweb.com` (403), `cda-web.ar` (sem feed, baixo sinal); `circulo_aikikai_ar` removido (DNS morto, coberto pelas 4 fontes AR novas); `fedenachaa_cl` segue fora do ar (alertas monitoram)
 
-**Critério de saída:** ≥ 10 novas fontes ativas ingerindo em produção,
-nenhuma com fail streak crônico (≥3) após 2 semanas.
+**Critério de saída:** ≥ 10 novas fontes ativas ingerindo em produção ✔ (14);
+nenhuma com fail streak crônico (≥3) após 2 semanas — **janela de observação
+até 2026-08-10** (alertas da Fase 5 abrem issue automaticamente se falhar).
 
 ---
 
@@ -151,6 +153,7 @@ nenhuma com fail streak crônico (≥3) após 2 semanas.
 - [ ] Contato para informações incorretas: e-mail dedicado + link "reportar erro" em itens da agenda, notícias e cards do diretório (assunto pré-preenchido com o identificador do item)
 - [ ] Formulário de submissão de **evento** ou **novo dojo** (serviço estático compatível com Pages, ex.: Formspree/Tally/Google Forms) com campos alinhados ao schema (`events`/`orgs`)
 - [ ] Fluxo de moderação documentado: fila → revisão manual → incorporação no `seed.sql`/`events` (submissão nunca publica direto — cf. ARCHITECTURE §8 "submissão moderada")
+- [ ] Avaliar Instagram como canal de atualizações (pedido de 2026-07-27): scraping direto está **descartado** — robots/ToS do Instagram proíbem acesso automatizado e o projeto respeita robots.txt por princípio (cf. blocklist). Caminhos viáveis: (a) Graph API oficial com autorização expressa das contas dos dojos/federações parceiros (encaixa no fluxo de submissão moderada desta fase); (b) serviços de bridge RSS pagos (custo recorrente — só se houver demanda). Perfis podem ser listados como link no diretório desde já, sem coleta.
 - [ ] **Segurança do conteúdo submetido** (requisito, 2026-07-27):
   - *SQL injection*: nenhuma submissão entra no banco por concatenação de SQL — sempre queries parametrizadas na incorporação (`?` no sqlite3/better-sqlite3); o `seed.sql` gerado a partir de submissões usa escaping automatizado, nunca copy-paste manual de texto do usuário
   - *Prompt injection*: texto de submissão é conteúdo não confiável — se passar pela esteira de enriquecimento (tradução/classificação via Gemini, Fase 3), vai delimitado como dado (não como instrução), com instrução explícita ao modelo para ignorar comandos embutidos, e a saída é validada (schema/campos esperados) antes de entrar no banco; nada de submissão vai a prompt de agente com ferramentas

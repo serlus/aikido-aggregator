@@ -202,6 +202,26 @@ sources:
     cadence: monthly
     priority: 3
 
+  - id: insbrai_rs
+    name: INSBRAI — Instituto Sul-Brasileiro de Aikido (Porto Alegre/RS)
+    url: https://aikido.com.br/
+    country: BR
+    lang: [pt]
+    lineage: aikikai
+    engine: wp_json    # confirmado na triagem 2026-07-27 (posts dez/2025);
+    cadence: biweekly  # região-alvo do agregador (Sul do Brasil)
+    priority: 1
+
+  - id: aikido_rj
+    name: Aikido Rio de Janeiro (Ichitami Shikanai)
+    url: https://www.aikidoriodejaneiro.com.br/
+    country: BR
+    lang: [pt]
+    lineage: kumano_anno  # Shikanai Shihan 8º Dan, formado em Shingu (Hikitsuchi)
+    engine: http       # site próprio sem feed/wp-json — hash da home
+    cadence: monthly
+    priority: 2
+
   # ══════════ ARGENTINA / CHILE ══════════
   - id: fedenachaa_cl
     name: FEDENACHAA (Chile)
@@ -214,13 +234,134 @@ sources:
     cadence: monthly
     priority: 3
 
-  - id: circulo_aikikai_ar
-    name: Círculo Aikikai (Argentina)
-    url: https://www.circuloaikikai.com.ar/
+  # circulo_aikikai_ar removido em 2026-07-27 (Fase 7): DNS morto desde
+  # 2026-07-24, sem URL nova encontrada. Cobertura AR substituída pelas
+  # 4 fontes abaixo (triagem Fase 7).
+
+  - id: fed_aikikai_ar
+    name: Federación Aikikai Argentina
+    url: https://federacionaikikaiargentina.ar/
     country: AR
     lang: [es]
-    lineage: tissier_ffaaa
-    engine: http       # DNS não resolve em 2026-07-24 (site possivelmente
-                       # extinto) — alertas monitoram; buscar URL nova na Fase 7
+    lineage: aikikai
+    engine: wp_json    # confirmado na triagem 2026-07-27 — seminários como posts
+    cadence: weekly
+    priority: 1
+
+  - id: aikikai_com_ar
+    name: Aikikai Argentina (Asociación — Daniel Sandoval)
+    url: https://www.aikikai.com.ar/
+    country: AR
+    lang: [es]
+    lineage: aikikai
+    engine: rss        # Wix — feed do blog (posts 2025-12 na triagem)
+    endpoints:
+      rss: https://www.aikikai.com.ar/blog-feed.xml
+    cadence: monthly
+    priority: 2
+
+  - id: asa_ar
+    name: ASA — Asociación Sudamericana de Aikido
+    url: https://asaikido.com.ar/
+    country: AR
+    lang: [es]
+    lineage: aikikai
+    engine: rss        # WP; último post 2024-10 na triagem — cadência baixa
+    cadence: monthly
+    priority: 3
+
+  - id: oaa_ar
+    name: OAA — Organización Argentina de Aikido
+    url: https://aikidoargentina.org/
+    country: AR
+    lang: [es]
+    lineage: aikikai
+    engine: http       # WP+Elementor mas wp-json 403 e feed vazio — hash da home
+    cadence: monthly
+    priority: 3
+
+  # ══════════ EUA / CANADÁ ══════════
+  - id: usaf_us
+    name: USAF — United States Aikido Federation
+    url: https://www.usaikifed.com/
+    country: US
+    lang: [en]
+    lineage: aikikai
+    engine: rss        # Wix — blog ativo (posts jul/2026 na triagem 2026-07-27)
+    endpoints:
+      rss: https://www.usaikifed.com/blog-feed.xml
+    cadence: weekly
+    priority: 1
+
+  - id: birankai_us
+    name: Birankai North America
+    url: https://birankai.org/
+    country: US
+    lang: [en]
+    lineage: aikikai   # linha T.K. Chiba
+    engine: http       # WP mas /feed/ e wp-json vazios (conteúdo em pages)
+    cadence: monthly
+    priority: 3
+
+  - id: aaa_us
+    name: AAA — Aikido Association of America
+    url: https://aaa-aikido.com/
+    country: US
+    lang: [en]
+    lineage: aikikai   # linha Fumio Toyoda
+    engine: http       # WP mas /feed/ e wp-json vazios (conteúdo em pages)
+    cadence: monthly
+    priority: 3
+
+  - id: caf_ca
+    name: CAF — Canadian Aikido Federation
+    url: https://www.aikidocanada.org/
+    country: CA
+    lang: [en]
+    lineage: aikikai
+    engine: wp_json    # funcional, mas último post 2023 — monitora retomada
+    cadence: monthly
+    priority: 3
+
+  # ══════════ EUROPA (além da França) ══════════
+  - id: dab_de
+    name: DAB — Deutscher Aikido-Bund
+    url: https://www.aikido-bund.de/
+    country: DE
+    lang: [de]
+    engine: http       # CMS próprio, sem feed/wp-json — hash da pág. de notícias
+    endpoints:
+      http: https://www.aikido-bund.de/aktuelles/
+    cadence: monthly
+    priority: 2
+
+  - id: fpaikido_pt
+    name: FPA — Federação Portuguesa de Aikido
+    url: https://www.fpaikido.pt/
+    country: PT
+    lang: [pt]
+    engine: rss        # Drupal — rss.xml existe mas parado desde 2019;
+    endpoints:         # prioridade baixa, monitora retomada (conteúdo já em PT)
+      rss: https://www.fpaikido.pt/rss.xml
+    cadence: monthly
+    priority: 3
+
+  # ══════════ MÍDIA ESPECIALIZADA ══════════
+  - id: aikido_journal
+    name: Aikido Journal
+    url: https://aikidojournal.com/
+    country: US
+    lang: [en]
+    engine: wp_json    # WP aberto (robots allow-all), posts ativos jul/2026
+    cadence: weekly
+    priority: 1
+
+  - id: guillaume_erard
+    name: Guillaume Erard — artigos e documentários
+    url: https://www.guillaumeerard.com/
+    country: JP
+    lang: [en, fr]
+    lineage: aikikai
+    engine: http       # Joomla sem feed exposto — hash da home
     cadence: monthly
     priority: 3

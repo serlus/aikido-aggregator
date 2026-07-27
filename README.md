@@ -9,9 +9,10 @@ Docs: [PRD](PRD.md) · [FASES](FASES.md) · [ARCHITECTURE](ARCHITECTURE.md)
 
 ## O que já está no ar
 
-- **Coleta automatizada** (Fases 0–2): ~20 fontes monitoradas com cadência
-  calibrada por dados reais de frequência; engines `wp_json`, `rss`, `html` e
-  `headless` (Playwright) rodando via GitHub Actions (`scrape.yml`).
+- **Coleta automatizada** (Fases 0–2, expandida na 7): ~33 fontes catalogadas
+  em 10 países (JP, FR, BR, AR, CL, US, CA, DE, PT + mídia especializada) com
+  cadência calibrada por dados reais de frequência; engines `wp_json`, `rss`,
+  `html` e `headless` (Playwright) rodando via GitHub Actions (`scrape.yml`).
 - **Enriquecimento** (Fase 3): classificação notícia/seminário/evento,
   geocodificação e tradução JA/FR/ES/EN → PT via Gemini, com cache em SQLite.
 - **Site estático** (Fase 4): Astro + Tailwind, 5 páginas (home, agenda com
@@ -26,8 +27,12 @@ Docs: [PRD](PRD.md) · [FASES](FASES.md) · [ARCHITECTURE](ARCHITECTURE.md)
   micro-interações com `prefers-reduced-motion`. Lighthouse mobile ≥ 90
   nas 5 páginas.
 
-Próximas: expansão de fontes (Fase 7) e canal de submissões da comunidade
-(Fase 8) — ver [FASES](FASES.md).
+- **Expansão de fontes** (Fase 7): +14 fontes via esteira de triagem
+  (robots.txt → plataforma → wp-json/feed → cadência), incluindo Federación
+  Aikikai Argentina, USAF, Aikido Journal e INSBRAI (Porto Alegre); janela de
+  observação de estabilidade até 2026-08-10.
+
+Próxima: canal de submissões da comunidade (Fase 8) — ver [FASES](FASES.md).
 
 ## Rodando localmente
 
