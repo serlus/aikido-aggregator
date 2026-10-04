@@ -1,44 +1,44 @@
 # Relatório de frequência de atualização
 
-_Gerado em 2026-10-03 14:12 UTC · fonte: db/probes.sqlite_
+_Gerado em 2026-10-04 14:42 UTC · fonte: db/probes.sqlite_
 
 | Fonte | País | Probes | Mudanças | Erros | Última mudança | Intervalo médio | Cadência recomendada |
 |---|---|---|---|---|---|---|---|
-| AAA — Aikido Association of America | US | 69 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| ACAI — Associação Catarinense de Aikidō | BR | 73 | 1 | 1 | 2026-08-20T09:36:43+00:00 | 71.5d | **monthly** |
-| Aikido Journal | US | 69 | 68 | 0 | 2026-10-03T14:12:10+00:00 | 1.0d | **daily** |
-| Aikido Paraná Brasil | BR | 73 | 4 | 1 | 2026-09-20T13:29:45+00:00 | 17.9d | **biweekly** |
-| Aikido Rio de Janeiro (Ichitami Shikanai) | BR | 69 | 2 | 0 | 2026-09-25T14:29:41+00:00 | 34.0d | **monthly** |
-| ABAI — Federação Baiana de Aikido | BR | 73 | 1 | 36 | 2026-09-25T14:29:32+00:00 | 71.5d | **monthly** |
-| Aikikai Argentina (Asociación — Daniel Sandoval) | AR | 69 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| Aikikai Foundation (Hombu Dojo) | JP | 73 | 0 | 3 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| Aikikai Hombu — agenda oficial de eventos | JP | 72 | 0 | 3 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| Dojô Ame no Iwaya (Viamão/RS) | BR | 73 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| ASA — Asociación Sudamericana de Aikido | AR | 69 | 0 | 1 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| Birankai North America | US | 69 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| CAF — Canadian Aikido Federation | CA | 69 | 8 | 1 | 2026-09-14T15:50:52+00:00 | 8.5d | **weekly** |
-| Cercle Christian Tissier (Vincennes) | FR | 74 | 5 | 1 | 2026-09-07T14:53:13+00:00 | 14.3d | **biweekly** |
-| Christian Tissier — site oficial (agenda de estágios) | FR | 73 | 3 | 0 | 2026-09-23T14:07:29+00:00 | 23.8d | **monthly** |
+| AAA — Aikido Association of America | US | 70 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| ACAI — Associação Catarinense de Aikidō | BR | 74 | 1 | 1 | 2026-08-20T09:36:43+00:00 | 72.6d | **monthly** |
+| Aikido Journal | US | 70 | 69 | 0 | 2026-10-04T14:42:24+00:00 | 1.0d | **daily** |
+| Aikido Paraná Brasil | BR | 74 | 4 | 1 | 2026-09-20T13:29:45+00:00 | 18.1d | **biweekly** |
+| Aikido Rio de Janeiro (Ichitami Shikanai) | BR | 70 | 2 | 0 | 2026-09-25T14:29:41+00:00 | 34.5d | **monthly** |
+| ABAI — Federação Baiana de Aikido | BR | 74 | 1 | 36 | 2026-09-25T14:29:32+00:00 | 72.6d | **monthly** |
+| Aikikai Argentina (Asociación — Daniel Sandoval) | AR | 70 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| Aikikai Foundation (Hombu Dojo) | JP | 74 | 0 | 3 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| Aikikai Hombu — agenda oficial de eventos | JP | 73 | 0 | 3 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| Dojô Ame no Iwaya (Viamão/RS) | BR | 74 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| ASA — Asociación Sudamericana de Aikido | AR | 70 | 0 | 1 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| Birankai North America | US | 70 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| CAF — Canadian Aikido Federation | CA | 70 | 8 | 1 | 2026-09-14T15:50:52+00:00 | 8.6d | **weekly** |
+| Cercle Christian Tissier (Vincennes) | FR | 75 | 5 | 1 | 2026-09-07T14:53:13+00:00 | 14.5d | **biweekly** |
+| Christian Tissier — site oficial (agenda de estágios) | FR | 74 | 3 | 0 | 2026-09-23T14:07:29+00:00 | 24.2d | **monthly** |
 | circulo_aikikai_ar | ? | 5 | 0 | 5 | — | — | **aguardando dados (≥7 dias)** |
-| DAB — Deutscher Aikido-Bund | DE | 69 | 68 | 0 | 2026-10-03T14:12:04+00:00 | 1.0d | **daily** |
-| Daishō Aikido Dojo (Criciúma/SC) | BR | 73 | 1 | 4 | 2026-08-27T19:40:36+00:00 | 71.5d | **monthly** |
-| FEBRAI — Federação Brasileira de Aikido | BR | 73 | 70 | 0 | 2026-10-03T14:11:04+00:00 | 1.0d | **daily** |
-| FECHIAI — Federación Chilena de Aikido | CL | 69 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| Federación Aikikai Argentina | AR | 69 | 16 | 0 | 2026-10-01T16:06:38+00:00 | 4.3d | **weekly** |
-| FEDENACHAA (Chile) | CL | 73 | 0 | 63 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| FEPAI-Brasil — Federação Paulista de Aikido | BR | 73 | 3 | 5 | 2026-09-29T15:27:40+00:00 | 23.8d | **monthly** |
-| FFAAA — Fédération Française d'Aïkido, Aïkibudo et Affinitaires | FR | 73 | 10 | 0 | 2026-09-15T14:15:06+00:00 | 7.2d | **weekly** |
-| FPA — Federação Portuguesa de Aikido | PT | 69 | 2 | 0 | 2026-08-01T10:45:31+00:00 | 34.0d | **monthly** |
-| Guillaume Erard — artigos e documentários | JP | 69 | 67 | 1 | 2026-10-03T14:12:14+00:00 | 1.0d | **daily** |
-| ICA — Instituto Catarinense de Aikido | BR | 73 | 0 | 1 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| INSBRAI — Instituto Sul-Brasileiro de Aikido (Porto Alegre/RS) | BR | 69 | 65 | 1 | 2026-10-03T14:11:28+00:00 | 1.0d | **daily** |
-| Iwama Shinshin Aikishuren Kai | JP | 73 | 0 | 2 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| Federação Mineira de Aikido | BR | 73 | 0 | 4 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| OAA — Organización Argentina de Aikido | AR | 69 | 2 | 5 | 2026-08-11T10:04:21+00:00 | 34.0d | **monthly** |
-| Shoyukan Aikikai Brasil | BR | 73 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| Instituto Takemussu / Confederação Brasileira de Aikido - Brazil Aikikai | BR | 73 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
-| USAF — United States Aikido Federation | US | 69 | 3 | 0 | 2026-08-22T09:30:09+00:00 | 22.7d | **monthly** |
-| Yoshinkan Aikido Honbu | JP | 73 | 5 | 0 | 2026-10-03T14:10:20+00:00 | 14.3d | **biweekly** |
+| DAB — Deutscher Aikido-Bund | DE | 70 | 69 | 0 | 2026-10-04T14:42:19+00:00 | 1.0d | **daily** |
+| Daishō Aikido Dojo (Criciúma/SC) | BR | 74 | 1 | 4 | 2026-08-27T19:40:36+00:00 | 72.6d | **monthly** |
+| FEBRAI — Federação Brasileira de Aikido | BR | 74 | 71 | 0 | 2026-10-04T14:41:16+00:00 | 1.0d | **daily** |
+| FECHIAI — Federación Chilena de Aikido | CL | 70 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| Federación Aikikai Argentina | AR | 70 | 16 | 0 | 2026-10-01T16:06:38+00:00 | 4.3d | **weekly** |
+| FEDENACHAA (Chile) | CL | 74 | 0 | 63 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| FEPAI-Brasil — Federação Paulista de Aikido | BR | 74 | 3 | 5 | 2026-09-29T15:27:40+00:00 | 24.2d | **monthly** |
+| FFAAA — Fédération Française d'Aïkido, Aïkibudo et Affinitaires | FR | 74 | 10 | 0 | 2026-09-15T14:15:06+00:00 | 7.3d | **weekly** |
+| FPA — Federação Portuguesa de Aikido | PT | 70 | 2 | 0 | 2026-08-01T10:45:31+00:00 | 34.5d | **monthly** |
+| Guillaume Erard — artigos e documentários | JP | 70 | 68 | 1 | 2026-10-04T14:42:27+00:00 | 1.0d | **daily** |
+| ICA — Instituto Catarinense de Aikido | BR | 74 | 0 | 1 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| INSBRAI — Instituto Sul-Brasileiro de Aikido (Porto Alegre/RS) | BR | 70 | 66 | 1 | 2026-10-04T14:41:46+00:00 | 1.0d | **daily** |
+| Iwama Shinshin Aikishuren Kai | JP | 74 | 0 | 2 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| Federação Mineira de Aikido | BR | 74 | 0 | 4 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| OAA — Organización Argentina de Aikido | AR | 70 | 2 | 5 | 2026-08-11T10:04:21+00:00 | 34.5d | **monthly** |
+| Shoyukan Aikikai Brasil | BR | 74 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| Instituto Takemussu / Confederação Brasileira de Aikido - Brazil Aikikai | BR | 74 | 0 | 0 | — | — | **monthly (nenhuma mudança ainda — revisar aos 60d)** |
+| USAF — United States Aikido Federation | US | 70 | 3 | 0 | 2026-08-22T09:30:09+00:00 | 23.0d | **monthly** |
+| Yoshinkan Aikido Honbu | JP | 74 | 5 | 0 | 2026-10-03T14:10:20+00:00 | 14.5d | **biweekly** |
 
 ## Endpoints estruturados descobertos (usar em vez de scraping!)
 
